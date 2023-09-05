@@ -21,6 +21,8 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { NextSeo } from "next-seo";
 import { useDao, AuctionHero } from "nouns-builder-components";
 import Link from "next/link";
+import MobileMenu from "./MobileMenu";
+import { useRouter } from "next/router";
 
 interface LayoutProps {
     children?: ReactNode;
@@ -35,6 +37,8 @@ const Layout: NextPage<LayoutProps> = (props) => {
     abi: auctionContract.abi,
     functionName: "auction",
   }).data;
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+  const router = useRouter();
 
   const treasuryBalance = useBalance({
     address: "0xeB5977F7630035fe3b28f11F9Cb5be9F01A9557D",
@@ -66,6 +70,13 @@ const Layout: NextPage<LayoutProps> = (props) => {
       const json = Buffer.from(clean, "base64").toString();
       const result = JSON.parse(json);
     }
+
+    const checkWindowWidth = () => setIsMobile(window.innerWidth < 768);
+
+    window.addEventListener("resize", checkWindowWidth);
+    checkWindowWidth();
+
+    return () => window.removeEventListener("resize", checkWindowWidth);
   }, [tokenURI]); // TODO: check if tokenUri is actually used
 
   const daoConfig = {
@@ -123,7 +134,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
       <main className="h-auto flex-col gap-8">
         <div className="flex flex-row gap-0 pl-10 pr-5 w-screen">
           <div className="w-1/6 h-auto mt-5"> {/* Nav(TODO: add to its own file) */}
-            <nav>
+            {!isMobile && <nav>
               <ul className="flex flex-col gap-2 p-3 md:gap-5 md:p-5">
                 <li className="block mb-2 md:mb-3">
                   <Link href="/">
@@ -181,9 +192,20 @@ const Layout: NextPage<LayoutProps> = (props) => {
                 )} */}
                 <ConnectButton label="Connect" />
               </ul>
-            </nav>
+              </nav>
+            }
           </div>
           <div className="w-4/6 h-auto flex flex-col items-center border-l border-r border-gray-300 pb-10">
+            {router.pathname !== '/' || (router.pathname === '/' && isMobile) && 
+             <div className="w-[100%] p-3 pt-3 border-b border-gray-400 flex flex-row gap-2 items-center justify-between">
+              <p className="pl-3 text-xl">
+                {router.pathname === '/'
+                ? 'Home'
+                : (router.pathname as string).replace('/', '').replace(/^\w/, (c) => c.toUpperCase())}
+              </p>
+              {isMobile && <MobileMenu />}
+            </div>
+            }
             {props.children}
           </div>
         </div>

@@ -25,6 +25,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 import "react-notion-x/src/styles.css";
 import { NextSeo } from "next-seo";
 import { useDao, AuctionHero } from "nouns-builder-components";
+import Link from "next/link";
 
 export const getStaticProps = async () => {
   try {
@@ -90,7 +91,7 @@ const Home: NextPage = (props) => {
     shareGraphic: "https://purple.construction/purple/share-graphic.png",
     discordLink: "https://discord.gg/4GUeHBRBNV",
     twitterLink: "",
-    farcasterLink: "https://fcast.me/purple",
+    farcasterLink: "https://warpcast.com/purple",
   };
 
   return (
@@ -135,80 +136,84 @@ const Home: NextPage = (props) => {
       />
 
       <main className="min-h-screen flex-col gap-8">
-        <div className="flex flex-row gap-10 items-center justify-between p-5">
-          <div className="flex flex-row gap-5 items-center justify-between md:p-5">
-            <p className="text-xl font-bold">{daoConfig.title}</p>
-            <div className="flex flex-col">
-              <p className="font-bold leading-none	">
-                Ξ {isMounted() && treasuryBalance ? Math.floor(+treasuryBalance?.formatted) : <Skeleton />}
-              </p>
-              <p className="text-sm text-gray-700 opacity-60 leading-none whitespace-nowrap">
-                treasury balance
-              </p>
-            </div>
+        {/* start of nav and auction */}
+        <div className="flex flex-row gap-0 pt-10 pl-10 pr-5 pb-10 w-screen">
+          <div className="w-1/6 h-auto pl-5">
+            <nav>
+              <ul className="flex flex-col gap-2 p-3 md:gap-5 md:p-5">
+                <li className="block mb-2 md:mb-3">
+                  <Link href="/">
+                    <p className="text-xl font-bold pb-2">{daoConfig.title}</p>
+                  </Link>
+                  <div className="flex flex-col">
+                <p className="font-bold leading-none	">
+                  Ξ {isMounted() && treasuryBalance ? Math.floor(+treasuryBalance?.formatted) : <Skeleton />}
+                </p>
+                <p className="text-sm text-gray-700 opacity-60 leading-none whitespace-nowrap">
+                  treasury balance
+                </p>
+              </div>
+                </li>
+                <li className="block">
+                  <Link href="/about">About</Link>
+                </li>
+                <li className="block">
+                  <Link href="/activity">Activity</Link>
+                </li>
+                <li className="block">
+                  <Link
+                    href="https://nouns.build/dao/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60"
+                    rel="noopener"
+                    className="external"
+                  >
+                    DAO
+                  </Link>
+                </li>
+                {/* {daoConfig.discordLink && (
+                  <li className="flex items-center">
+                    <a href={daoConfig.discordLink} rel="noopener">
+                      <FaDiscord />
+                    </a>
+                  </li>
+                )}
+                {daoConfig.twitterLink && (
+                  <li className="flex items-center">
+                    <a href={daoConfig.twitterLink} rel="noopener">
+                      <FaTwitter />
+                    </a>
+                  </li>
+                )}
+                {daoConfig.farcasterLink && (
+                  <li className="flex items-center">
+                    <a href={daoConfig.farcasterLink} rel="noopener">
+                      <img
+                        src="/img/logo-farcaster.svg"
+                        alt="Farcaster logo"
+                        className="w-4"
+                      />
+                    </a>
+                  </li>
+                )} */}
+                <ConnectButton label="Connect" />
+              </ul>
+            </nav>
           </div>
-
-          <nav>
-            <ul className="flex flex-row gap-2 md:gap-5 md:p-5 items-center">
-              <li className="hidden md:block">
-                <a href="#auction">Auction</a>
-              </li>
-              <li className="hidden md:block">
-                <a href="#about">About</a>
-              </li>
-              <li className="hidden md:block">
-                <a href="#collection">Collection</a>
-              </li>
-              <li className="hidden md:block">
-                <a
-                  href="https://nouns.build/dao/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60"
-                  rel="noopener"
-                  className="external"
-                >
-                  DAO
-                </a>
-              </li>
-              {daoConfig.discordLink && (
-                <li className="flex items-center">
-                  <a href={daoConfig.discordLink} rel="noopener">
-                    <FaDiscord />
-                  </a>
-                </li>
-              )}
-              {daoConfig.twitterLink && (
-                <li className="flex items-center">
-                  <a href={daoConfig.twitterLink} rel="noopener">
-                    <FaTwitter />
-                  </a>
-                </li>
-              )}
-              {daoConfig.farcasterLink && (
-                <li className="flex items-center">
-                  <a href={daoConfig.farcasterLink} rel="noopener">
-                    <img
-                      src="/img/logo-farcaster.svg"
-                      alt="Farcaster logo"
-                      className="w-4"
-                    />
-                  </a>
-                </li>
-              )}
-              <ConnectButton label="Connect" />
-            </ul>
-          </nav>
+          <div className="w-4/6 h-screen flex flex-col items-center border-b border-l border-r border-gray-300">
+            {dao && (
+              <div id="auction" className="p-5 md:p-20 col-span-2 w-full">
+                <div className="flex justify-center">
+                  <AuctionHero
+                    dao={dao}
+                    opts={{
+                      theme: "base",
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+          </div>
         </div>
-        {dao && (
-          <div id="auction" className="p-5 md:p-20 col-span-2 w-full">
-            <div className="flex justify-center">
-              <AuctionHero
-                dao={dao}
-                opts={{
-                  theme: "base",
-                }}
-              />
-            </div>
-          </div>
-        )}
+        {/* end of nav and auction */}
         <hr className="w-full border-gray-300 my-10" />
         <div id="about" className="p-8 mt-10 col-span-2 justify-center w-full">
           <div className="mx-auto max-w-[40rem] flex flex-col gap-2 items-start">

@@ -2,7 +2,7 @@ import "../styles/globals.scss";
 import "../styles/app.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import type { AppProps } from "next/app";
-import { RainbowKitProvider, getDefaultWallets } from "@rainbow-me/rainbowkit";
+import { RainbowKitProvider, darkTheme, getDefaultWallets } from "@rainbow-me/rainbowkit";
 import { WagmiConfig, createClient, configureChains, mainnet } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
@@ -19,7 +19,7 @@ const { chains, provider, webSocketProvider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-  appName: "My RainbowKit App",
+  appName: "Purple DAO",
   chains,
 });
 
@@ -32,7 +32,10 @@ const wagmiClient = createClient({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
+      <RainbowKitProvider chains={chains} theme={darkTheme({
+        accentColor: '#8465CB',
+        accentColorForeground: 'white',
+      })}>
         <BuilderDAO collection={tokenContract.address} chain="MAINNET">
           <Component {...pageProps} />
         </BuilderDAO>

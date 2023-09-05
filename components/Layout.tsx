@@ -133,7 +133,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
 
       <main className="h-auto flex-col gap-8">
         <div className="flex flex-row gap-0 pl-10 pr-5 w-screen">
-          <div className="w-1/6 h-auto mt-5"> {/* Nav(TODO: add to its own file) */}
+          <div className="invisible md:visible w-[0px] md:w-1/6 h-auto mt-5"> {/* Nav(TODO: add to its own file) */}
             {!isMobile && <nav>
               <ul className="flex flex-col gap-2 p-3 md:gap-5 md:p-5">
                 <li className="block mb-2 md:mb-3">
@@ -195,9 +195,9 @@ const Layout: NextPage<LayoutProps> = (props) => {
               </nav>
             }
           </div>
-          <div className="w-4/6 h-auto flex flex-col items-center border-l border-r border-gray-300 pb-10">
+          <div className="w-[100vw] md:w-4/6 h-auto flex flex-col items-center border-l border-r border-gray-300 pb-10">
             {(router.pathname === '/' && isMobile) || router.pathname !== '/' ? 
-             <div className="w-[100%] p-3 pt-3 border-b border-gray-400 flex flex-row gap-2 items-center justify-between">
+             <div className="w-full p-3 pt-3 border-b border-gray-400 flex flex-row gap-2 items-center justify-between">
               <p className="pl-3 text-xl">
                 {router.pathname === '/'
                 ? 'Home'

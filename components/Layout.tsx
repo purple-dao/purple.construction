@@ -153,7 +153,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
                   <Link href="/about">About</Link>
                 </li>
                 <li className="block">
-                  <Link href="/activity">Activity</Link>
+                  <Link href="/proposals">Proposals</Link>
                 </li>
                 <li className="block">
                   <Link
@@ -196,7 +196,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
             }
           </div>
           <div className="w-4/6 h-auto flex flex-col items-center border-l border-r border-gray-300 pb-10">
-            {router.pathname !== '/' || (router.pathname === '/' && isMobile) && 
+            {(router.pathname === '/' && isMobile) || router.pathname !== '/' ? 
              <div className="w-[100%] p-3 pt-3 border-b border-gray-400 flex flex-row gap-2 items-center justify-between">
               <p className="pl-3 text-xl">
                 {router.pathname === '/'
@@ -205,12 +205,12 @@ const Layout: NextPage<LayoutProps> = (props) => {
               </p>
               {isMobile && <MobileMenu />}
             </div>
-            }
+            : <></>}
             {props.children}
           </div>
         </div>
       </main>
-      <footer className="text-center flex flex-col gap-5 justify-center pb-10">
+      <footer className="text-center flex flex-col gap-5 justify-center mb-10">
         <hr className="w-full border-gray-300 py-3" />
         <div className="flex flex-col gap-2 items-center">
           <div className="max-w-[5rem]">

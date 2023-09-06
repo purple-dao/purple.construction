@@ -24,6 +24,7 @@ import { useDao, AuctionHero } from "nouns-builder-components";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import { useRouter } from "next/router";
+import Script from "next/script";
 
 interface LayoutProps {
     children?: ReactNode;
@@ -110,6 +111,16 @@ const Layout: NextPage<LayoutProps> = (props) => {
           rel="stylesheet"
         />
       </Head>
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-RJPL0Z2LLC" />
+      <Script id="google-analytics">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+ 
+          gtag('config', 'G-RJPL0Z2LLC');
+        `}
+      </Script>
       <NextSeo
         title={daoConfig.title}
         description={daoConfig.description}

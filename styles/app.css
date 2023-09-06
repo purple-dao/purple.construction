@@ -659,12 +659,12 @@ video {
   max-width: 300px;
 }
 
-.max-w-\[5rem\] {
-  max-width: 5rem;
-}
-
 .max-w-\[5vw\] {
   max-width: 5vw;
+}
+
+.max-w-\[5rem\] {
+  max-width: 5rem;
 }
 
 .transform {
@@ -848,12 +848,12 @@ video {
   padding-bottom: 0px;
 }
 
-.pl-10 {
-  padding-left: 2.5rem;
+.pl-0 {
+  padding-left: 0px;
 }
 
-.pr-5 {
-  padding-right: 1.25rem;
+.pr-0 {
+  padding-right: 0px;
 }
 
 .pb-10 {
@@ -878,14 +878,6 @@ video {
 
 .pr-3 {
   padding-right: 0.75rem;
-}
-
-.pl-0 {
-  padding-left: 0px;
-}
-
-.pr-0 {
-  padding-right: 0px;
 }
 
 .text-left {

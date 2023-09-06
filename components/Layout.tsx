@@ -208,9 +208,17 @@ const Layout: NextPage<LayoutProps> = (props) => {
                       />
                     </a>
                   </li>
-                )} */}
+                )} */} {/* TODO; Add these icons back in, as well as GH link */ }
                 <div className="max-w-[5vw]">
-                  <ConnectButton label="Connect" />
+                  <ConnectButton
+                      showBalance={{
+                        smallScreen: false,
+                        largeScreen: false,
+                      }}
+                      chainStatus="none"
+                      accountStatus="avatar"
+                      label="Connect"
+                    />
                 </div>
               </ul>
               </nav>

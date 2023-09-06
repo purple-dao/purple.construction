@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FaBars } from "react-icons/fa";
 import Link from "next/link";
 import { useIsMounted } from "usehooks-ts";
-import { useBalance } from "wagmi";
+import { useAccount, useBalance } from "wagmi";
 import Skeleton from "react-loading-skeleton";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
@@ -11,6 +11,7 @@ interface MobileMenuProps {}
 
 const MobileMenu: NextPage<MobileMenuProps> = (props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
+  const { address, connector, isConnected } = useAccount();
   const isMounted = useIsMounted();
 
   const treasuryBalance = useBalance({
@@ -50,6 +51,11 @@ const MobileMenu: NextPage<MobileMenuProps> = (props) => {
                 <li className="block">
                 <Link href="/proposals">Proposals</Link>
                 </li>
+                {isConnected &&
+                  <li className="block">
+                    <Link href="https://nouns.build/dao/ethereum/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60/proposal/create">Create Proposal</Link>
+                  </li>
+                }
                 <li className="block">
                 <Link
                     href="https://nouns.build/dao/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60"

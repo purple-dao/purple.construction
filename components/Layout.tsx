@@ -8,6 +8,7 @@ import { ReactNode, useEffect, useState } from "react";
 import {
   useContractRead,
   useBalance,
+  useAccount,
 } from "wagmi";
 import Nft from "../components/NFT";
 import { auctionContract, tokenContract, treasuryContract } from "../config";
@@ -38,7 +39,9 @@ const Layout: NextPage<LayoutProps> = (props) => {
     functionName: "auction",
   }).data;
   const [isMobile, setIsMobile] = useState<boolean>(false);
+  const { address, connector, isConnected } = useAccount();
   const router = useRouter();
+  
 
   const treasuryBalance = useBalance({
     address: "0xeB5977F7630035fe3b28f11F9Cb5be9F01A9557D",
@@ -132,7 +135,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
       />
 
       <main className="h-auto flex-col gap-8">
-        <div className="flex flex-row gap-0 pl-10 pr-5 w-screen">
+        <div className="flex flex-row gap-0 pl-0 md:pl-10 pr-0 md:pr-5 w-screen">
           <div className="invisible md:visible w-[0px] md:w-1/6 h-auto mt-5"> {/* Nav(TODO: add to its own file) */}
             {!isMobile && <nav>
               <ul className="flex flex-col gap-2 p-3 md:gap-5 md:p-5">
@@ -155,6 +158,11 @@ const Layout: NextPage<LayoutProps> = (props) => {
                 <li className="block">
                   <Link href="/proposals">Proposals</Link>
                 </li>
+                {isConnected &&
+                  <li className="block">
+                    <Link href="https://nouns.build/dao/ethereum/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60/proposal/create">Create Proposal</Link>
+                  </li>
+                }
                 <li className="block">
                   <Link
                     href="https://nouns.build/dao/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60"
@@ -190,7 +198,9 @@ const Layout: NextPage<LayoutProps> = (props) => {
                     </a>
                   </li>
                 )} */}
-                <ConnectButton label="Connect" />
+                <div className="max-w-[5vw]">
+                  <ConnectButton label="Connect" />
+                </div>
               </ul>
               </nav>
             }

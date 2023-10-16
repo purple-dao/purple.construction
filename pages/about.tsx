@@ -44,10 +44,7 @@ const About: NextPage = (props) => {
                             - The treasury is controlled exclusively by Purple token holders.
                         </li>
                         <li>
-                            - PurpDAO.eth receive rewards in the form of Purple (10% of supply until 2050). More on this under “How does Founder Allocation work?” below.
-                        </li>
-                        <li>
-                            - Farcaster.eth receives rewards in the form of Purple (10% of supply until 2050).
+                            - Farcaster.eth receives rewards in the form of Purple (1% of supply until 2050).
                         </li>
                         <li>
                             - NounsDAO receives rewards in the form of Purple (1% of supply until 2050).

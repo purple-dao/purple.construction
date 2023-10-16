@@ -84,7 +84,7 @@ const About: NextPage = (props) => {
 
                 <p className="text-lg font-medium pb-2">Can I donate to the Purple treasury on an L2?</p>
                 <p>
-                    The official treasury only exists on Ethereum mainnet, but we have unofficial community multi-sig addresses set up on Optimism and Base. You can send funds to 0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411 on those networks and they will periodically be bridged back to the main treasury.
+                    The official treasury only exists on Ethereum mainnet, but we have unofficial community multi-sig addresses set up on <Link href="https://optimistic.etherscan.io/address/0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411">Optimism</Link> and <Link href="https://basescan.org/address/0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411">Base</Link>. You can send funds to 0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411 on those networks and they will periodically be bridged back to the main treasury.
                 </p>
             </div>
         </Layout>

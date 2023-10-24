@@ -23,7 +23,6 @@
     "react": "^18.1.0",
     "react-countdown": "^2.3.4",
     "react-dom": "^18.1.0",
-    "react-helmet": "^6.1.0",
     "react-icons": "^4.6.0",
     "react-loading-skeleton": "^3.1.0",
     "react-notion-x": "^6.15.7",
@@ -34,7 +33,6 @@
   "devDependencies": {
     "@types/node": "^17.0.35",
     "@types/react": "^18.0.9",
-    "@types/react-helmet": "^6.1.6",
     "autoprefixer": "^10.4.12",
     "concurrently": "^7.4.0",
     "eslint": "^8.23.1",

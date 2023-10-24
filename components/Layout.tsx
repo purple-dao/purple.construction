@@ -16,7 +16,6 @@ import { useIsMounted } from "usehooks-ts";
 import { ExtendedRecordMap } from "notion-types";
 import { FaDiscord } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
-import { Helmet } from "react-helmet";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { NextSeo } from "next-seo";
@@ -109,6 +108,10 @@ const Layout: NextPage<LayoutProps> = (props) => {
         <link
           href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet"
+        />
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/nouns-builder-components@latest/dist/index.css"
         />
       </Head>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-RJPL0Z2LLC" />
@@ -315,12 +318,6 @@ const Layout: NextPage<LayoutProps> = (props) => {
           </p>
         </div>
       </footer>
-      <Helmet>
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/nouns-builder-components@latest/dist/index.css"
-        />
-      </Helmet>
     </div>
   );
 };

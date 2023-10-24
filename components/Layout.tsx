@@ -1,26 +1,12 @@
-/* eslint-disable @next/next/no-page-custom-font */
-/* eslint-disable @next/next/no-img-element */
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { BigNumber } from "ethers";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { ReactNode, useEffect, useState } from "react";
-import {
-  useContractRead,
-  useBalance,
-  useAccount,
-} from "wagmi";
-import Nft from "../components/NFT";
-import { auctionContract, tokenContract, treasuryContract } from "../config";
+import { useBalance, useAccount } from "wagmi";
 import { useIsMounted } from "usehooks-ts";
-import { ExtendedRecordMap } from "notion-types";
-import { FaDiscord } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
-import { Helmet } from "react-helmet";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { NextSeo } from "next-seo";
-import { useDao, AuctionHero } from "nouns-builder-components";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import { useRouter } from "next/router";
@@ -31,16 +17,9 @@ interface LayoutProps {
   }
 
 const Layout: NextPage<LayoutProps> = (props) => {
-  const { children } = props;
-  const dao = useDao();
   const isMounted = useIsMounted();
-  const auction = useContractRead({
-    address: auctionContract.address,
-    abi: auctionContract.abi,
-    functionName: "auction",
-  }).data;
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const { address, connector, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const router = useRouter();
   
 
@@ -49,39 +28,14 @@ const Layout: NextPage<LayoutProps> = (props) => {
     watch: true,
   }).data;
 
-  const tokenURI = useContractRead({
-    address: tokenContract.address,
-    abi: tokenContract.abi,
-    functionName: "tokenURI",
-    args: [auction?.tokenId || BigNumber.from(35)],
-    onError(error) {
-      console.log("Error", error);
-    },
-  }).data;
-
-  const totalSupply = useContractRead({
-    address: tokenContract.address,
-    abi: tokenContract.abi,
-    functionName: "totalSupply",
-    onError(error) {
-      console.log("Error", error);
-    },
-  }).data;
-
   useEffect(() => {
-    if (tokenURI) {
-      const clean: string = tokenURI?.substring(29);
-      const json = Buffer.from(clean, "base64").toString();
-      const result = JSON.parse(json);
-    }
-
     const checkWindowWidth = () => setIsMobile(window.innerWidth < 768);
 
     window.addEventListener("resize", checkWindowWidth);
     checkWindowWidth();
 
     return () => window.removeEventListener("resize", checkWindowWidth);
-  }, [tokenURI]); // TODO: check if tokenUri is actually used
+  }, []);
 
   const daoConfig = {
     title: "Purple",
@@ -109,6 +63,10 @@ const Layout: NextPage<LayoutProps> = (props) => {
         <link
           href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap"
           rel="stylesheet"
+        />
+        <link
+          rel="stylesheet"
+          href="https://unpkg.com/nouns-builder-components@latest/dist/index.css"
         />
       </Head>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-RJPL0Z2LLC" />
@@ -315,12 +273,6 @@ const Layout: NextPage<LayoutProps> = (props) => {
           </p>
         </div>
       </footer>
-      <Helmet>
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/nouns-builder-components@latest/dist/index.css"
-        />
-      </Helmet>
     </div>
   );
 };

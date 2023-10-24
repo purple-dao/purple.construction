@@ -7,10 +7,9 @@ import { WagmiConfig, createClient, configureChains, mainnet } from "wagmi";
 import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 import { BuilderDAO } from "nouns-builder-components";
-import { config } from "process";
 import { tokenContract } from "../config";
 
-const { chains, provider, webSocketProvider } = configureChains(
+const { chains, provider } = configureChains(
   [mainnet],
   [
     alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_API_KEY || "" }),

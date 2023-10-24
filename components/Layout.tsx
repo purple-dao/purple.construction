@@ -13,7 +13,6 @@ import {
 import Nft from "../components/NFT";
 import { auctionContract, tokenContract, treasuryContract } from "../config";
 import { useIsMounted } from "usehooks-ts";
-import { ExtendedRecordMap } from "notion-types";
 import { FaDiscord } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";

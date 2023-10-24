@@ -1,10 +1,9 @@
-/* eslint-disable @next/next/no-img-element */
-import { useContractRead, useContractReads, useEnsName } from "wagmi";
+import { useContractRead, useEnsName } from "wagmi";
 import { BigNumber, utils } from "ethers";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useIsMounted } from "usehooks-ts";
-import { auctionContract, tokenContract, treasuryContract } from "../config";
+import { tokenContract } from "../config";
 import { useEffect, useState } from "react";
 import Countdown, { CountdownRenderProps } from "react-countdown";
 import { useKeyPress } from "../hooks/useKeyPress";

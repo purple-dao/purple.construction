@@ -1,24 +1,12 @@
-/* eslint-disable @next/next/no-page-custom-font */
-/* eslint-disable @next/next/no-img-element */
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { BigNumber } from "ethers";
 import type { NextPage } from "next";
 import Head from "next/head";
 import { ReactNode, useEffect, useState } from "react";
-import {
-  useContractRead,
-  useBalance,
-  useAccount,
-} from "wagmi";
-import Nft from "../components/NFT";
-import { auctionContract, tokenContract, treasuryContract } from "../config";
+import { useBalance, useAccount } from "wagmi";
 import { useIsMounted } from "usehooks-ts";
-import { FaDiscord } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { NextSeo } from "next-seo";
-import { useDao, AuctionHero } from "nouns-builder-components";
 import Link from "next/link";
 import MobileMenu from "./MobileMenu";
 import { useRouter } from "next/router";
@@ -29,16 +17,9 @@ interface LayoutProps {
   }
 
 const Layout: NextPage<LayoutProps> = (props) => {
-  const { children } = props;
-  const dao = useDao();
   const isMounted = useIsMounted();
-  const auction = useContractRead({
-    address: auctionContract.address,
-    abi: auctionContract.abi,
-    functionName: "auction",
-  }).data;
   const [isMobile, setIsMobile] = useState<boolean>(false);
-  const { address, connector, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const router = useRouter();
   
 
@@ -47,39 +28,14 @@ const Layout: NextPage<LayoutProps> = (props) => {
     watch: true,
   }).data;
 
-  const tokenURI = useContractRead({
-    address: tokenContract.address,
-    abi: tokenContract.abi,
-    functionName: "tokenURI",
-    args: [auction?.tokenId || BigNumber.from(35)],
-    onError(error) {
-      console.log("Error", error);
-    },
-  }).data;
-
-  const totalSupply = useContractRead({
-    address: tokenContract.address,
-    abi: tokenContract.abi,
-    functionName: "totalSupply",
-    onError(error) {
-      console.log("Error", error);
-    },
-  }).data;
-
   useEffect(() => {
-    if (tokenURI) {
-      const clean: string = tokenURI?.substring(29);
-      const json = Buffer.from(clean, "base64").toString();
-      const result = JSON.parse(json);
-    }
-
     const checkWindowWidth = () => setIsMobile(window.innerWidth < 768);
 
     window.addEventListener("resize", checkWindowWidth);
     checkWindowWidth();
 
     return () => window.removeEventListener("resize", checkWindowWidth);
-  }, [tokenURI]); // TODO: check if tokenUri is actually used
+  }, []);
 
   const daoConfig = {
     title: "Purple",

@@ -1,11 +1,8 @@
-/* eslint-disable @next/next/no-page-custom-font */
-/* eslint-disable @next/next/no-img-element */
 import { useDao, AuctionHero } from "nouns-builder-components";
 import { NextPage } from "next";
-import Link from "next/link";
 import Layout from "../components/Layout";
 
-const Home: NextPage = (props) => {
+const Home: NextPage = () => {
   const dao = useDao();
 
   return (

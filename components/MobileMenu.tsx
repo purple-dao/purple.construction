@@ -9,9 +9,9 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 interface MobileMenuProps {}
 
-const MobileMenu: NextPage<MobileMenuProps> = (props) => {
-  const [expanded, setExpanded] = useState<boolean>(false);
-  const { address, connector, isConnected } = useAccount();
+const MobileMenu: NextPage<MobileMenuProps> = () => {
+  const [expanded, setExpanded] = useState(false);
+  const { isConnected } = useAccount();
   const isMounted = useIsMounted();
 
   const treasuryBalance = useBalance({

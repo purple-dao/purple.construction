@@ -3,7 +3,7 @@ import Layout from "../components/Layout";
 import Link from "next/link";
 import { ProposalList, useDao } from "nouns-builder-components";
 
-const Proposals: NextPage = (props) => {
+const Proposals: NextPage = () => {
     const dao = useDao();
     return(
         <Layout>

@@ -2,12 +2,9 @@ import { NextPage } from "next";
 import Layout from "../components/Layout";
 import Link from "next/link";
 
-const About: NextPage = (props) => {
+const About: NextPage = () => {
     return(
         <Layout>
-            {/* <div className="w-[100%] p-3 border-b border-gray-400 flex flex-row gap-2">
-                <p className="pl-3 text-xl">About</p>
-            </div> */}
             <div className="w-[100%] h-auto p-4 pl-7">
                 <p className="text-lg font-medium pb-2">WTF?</p>
                 <p className="pb-7">Purple is a DAO whose goal is to proliferate and expand the Farcaster protocol and ecosystem. 
@@ -26,7 +23,7 @@ const About: NextPage = (props) => {
                 <p className="whitespace-pre-wrap pb-7">
                     <ul className="flex flex-col gap-2">
                         <li>
-                            - Purples artwork is based on Farcaster purple.
+                            - Purple&apos;s artwork is based on Farcaster purple.
                         </li>
                         <li>    
                             - One Purple token is auctioned off every 24 hours, forever.

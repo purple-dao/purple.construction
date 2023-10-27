@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: -apple-system, sans-serif;
+}
+
+a {
+  font-weight: bold;
+}
+
+h1 {
+  font-family: var(--font-londrina-solid);
+}
+
+p,
+li {
+  color: rgba(0, 0, 0, 0.7);
+}

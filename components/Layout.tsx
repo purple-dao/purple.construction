@@ -13,15 +13,14 @@ import { useRouter } from "next/router";
 import Script from "next/script";
 
 interface LayoutProps {
-    children?: ReactNode;
-  }
+  children?: ReactNode;
+}
 
 const Layout: NextPage<LayoutProps> = (props) => {
   const isMounted = useIsMounted();
   const [isMobile, setIsMobile] = useState<boolean>(false);
   const { isConnected } = useAccount();
   const router = useRouter();
-  
 
   const treasuryBalance = useBalance({
     address: "0xeB5977F7630035fe3b28f11F9Cb5be9F01A9557D",
@@ -49,25 +48,11 @@ const Layout: NextPage<LayoutProps> = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className="w-full">
       <Head>
         <title>{daoConfig.title}</title>
         <meta name="Purple" content="" />
         <link rel="icon" href="/purple/favicon.ico" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="true"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Londrina+Solid:wght@400;900&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/nouns-builder-components@latest/dist/index.css"
-        />
       </Head>
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-RJPL0Z2LLC" />
       <Script id="google-analytics">
@@ -105,44 +90,55 @@ const Layout: NextPage<LayoutProps> = (props) => {
 
       <main className="h-auto flex-col gap-8">
         <div className="flex flex-row gap-0 pl-0 md:pl-10 pr-0 md:pr-5 w-screen">
-          <div className="invisible md:visible w-[0px] md:w-1/6 h-auto mt-5"> {/* Nav(TODO: add to its own file) */}
-            {!isMobile && <nav>
-              <ul className="flex flex-col gap-2 p-3 md:gap-5 md:p-5">
-                <li className="block mb-2 md:mb-3">
-                  <Link href="/">
-                    <p className="text-xl font-bold pb-2">{daoConfig.title}</p>
-                  </Link>
-                  <div className="flex flex-col">
-                <p className="font-bold leading-none	">
-                  Ξ {isMounted() && treasuryBalance ? Math.floor(+treasuryBalance?.formatted) : <Skeleton />}
-                </p>
-                <p className="text-sm text-gray-700 opacity-60 leading-none whitespace-nowrap">
-                  treasury balance
-                </p>
-              </div>
-                </li>
-                <li className="block">
-                  <Link href="/about">About</Link>
-                </li>
-                <li className="block">
-                  <Link href="/proposals">Proposals</Link>
-                </li>
-                {isConnected &&
-                  <li className="block">
-                    <Link href="https://nouns.build/dao/ethereum/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60/proposal/create">Create Proposal</Link>
+          <div className="invisible md:visible w-0 md:w-1/6 h-auto mt-5">
+            {/* Nav(TODO: add to its own file) */}
+            {!isMobile && (
+              <nav>
+                <ul className="flex flex-col gap-2 p-3 md:gap-5 md:p-5">
+                  <li className="block mb-2 md:mb-3">
+                    <Link href="/" className="block text-xl font-bold pb-2">
+                      {daoConfig.title}
+                    </Link>
+                    <div className="flex flex-col">
+                      <p className="font-bold leading-none	">
+                        Ξ{" "}
+                        {isMounted() && treasuryBalance ? (
+                          Math.floor(+treasuryBalance?.formatted)
+                        ) : (
+                          <Skeleton />
+                        )}
+                      </p>
+                      <p className="text-sm text-gray-700 opacity-60 leading-none whitespace-nowrap">
+                        treasury balance
+                      </p>
+                    </div>
                   </li>
-                }
-                <li className="block">
-                  <Link
-                    href="https://nouns.build/dao/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60"
-                    rel="noopener"
-                    className="external"
-                  >
-                    DAO
-                  </Link>
-                </li>
-                {/* Social Media Icons(to add back in) */}
-                {/* {daoConfig.discordLink && (
+                  <li className="block">
+                    <Link href="/about">About</Link>
+                  </li>
+                  <li className="block">
+                    <Link href="/proposals">Proposals</Link>
+                  </li>
+                  {isMounted() && isConnected && (
+                    <li className="block">
+                      <a
+                        href="https://nouns.build/dao/ethereum/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60/proposal/create"
+                        target="_blank"
+                      >
+                        Create Proposal
+                      </a>
+                    </li>
+                  )}
+                  <li className="block">
+                    <a
+                      href="https://nouns.build/dao/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60"
+                      target="_blank"
+                    >
+                      DAO
+                    </a>
+                  </li>
+                  {/* Social Media Icons(to add back in) */}
+                  {/* {daoConfig.discordLink && (
                   <li className="flex items-center">
                     <a href={daoConfig.discordLink} rel="noopener">
                       <FaDiscord />
@@ -166,9 +162,10 @@ const Layout: NextPage<LayoutProps> = (props) => {
                       />
                     </a>
                   </li>
-                )} */} {/* TODO; Add these icons back in, as well as GH link */ }
-                <div className="max-w-[5vw]">
-                  <ConnectButton
+                )} */}
+                  {/* TODO; Add these icons back in, as well as GH link */}
+                  <div className="max-w-[5vw]">
+                    <ConnectButton
                       showBalance={{
                         smallScreen: false,
                         largeScreen: false,
@@ -177,22 +174,27 @@ const Layout: NextPage<LayoutProps> = (props) => {
                       accountStatus="avatar"
                       label="Connect"
                     />
-                </div>
-              </ul>
+                  </div>
+                </ul>
               </nav>
-            }
+            )}
           </div>
-          <div className="w-[100vw] md:w-4/6 h-auto flex flex-col items-center border-l border-r border-gray-300 pb-10">
-            {(router.pathname === '/' && isMobile) || router.pathname !== '/' ? 
-             <div className="w-full p-3 pt-3 border-b border-gray-400 flex flex-row gap-2 items-center justify-between">
-              <p className="pl-3 text-xl">
-                {router.pathname === '/'
-                ? 'Home'
-                : (router.pathname as string).replace('/', '').replace(/^\w/, (c) => c.toUpperCase())}
-              </p>
-              {isMobile && <MobileMenu />}
-            </div>
-            : <></>}
+          <div className="w-screen md:w-4/6 h-auto flex flex-col items-center border-l border-r border-gray-300 pb-10">
+            {(router.pathname === "/" && isMobile) ||
+            router.pathname !== "/" ? (
+              <div className="w-full p-3 pt-3 border-b border-gray-400 flex flex-row gap-2 items-center justify-between">
+                <p className="pl-3 text-xl">
+                  {router.pathname === "/"
+                    ? "Home"
+                    : (router.pathname as string)
+                        .replace("/", "")
+                        .replace(/^\w/, (c) => c.toUpperCase())}
+                </p>
+                {isMobile && <MobileMenu />}
+              </div>
+            ) : (
+              <></>
+            )}
             {props.children}
           </div>
         </div>
@@ -201,7 +203,7 @@ const Layout: NextPage<LayoutProps> = (props) => {
         <hr className="w-full border-gray-300 py-3" />
         <div className="flex flex-col gap-2 items-center">
           <div className="max-w-[5rem]">
-            <a href="https://nouns.build/">
+            <a href="https://nouns.build/" target="_blank">
               <svg
                 xmlnsXlink="http://www.w3.org/1999/xlink"
                 viewBox="0 0 696 186"
@@ -267,7 +269,11 @@ const Layout: NextPage<LayoutProps> = (props) => {
           </div>
           <p>
             built on{" "}
-            <a href="https://nouns.build/" className="underline">
+            <a
+              href="https://nouns.build/"
+              target="_blank"
+              className="underline"
+            >
               nouns builder
             </a>
           </p>

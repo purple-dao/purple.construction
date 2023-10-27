@@ -1,40 +1,43 @@
 {
-  "name": "builder-dao-clients",
+  "name": "purple.construction",
   "private": true,
-  "version": "0.1.0",
   "scripts": {
-    "dev": "concurrently \"npm run dev:css\" \"next dev\"",
-    "dev:css": "tailwindcss -w -i ./styles/input.css -o styles/app.css",
-    "build": "npm run build:css && next build",
-    "build:css": "tailwindcss -m -i ./styles/input.css -o styles/app.css",
+    "dev": "next dev",
+    "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "@next/font": "^13.0.5",
-    "@rainbow-me/rainbowkit": "^0.8.1",
+    "@rainbow-me/rainbowkit": "^0.12.18",
+    "@t3-oss/env-nextjs": "^0.7.1",
     "ethers": "^5.0.0",
-    "next": "^12.1.6",
+    "next": "^13.5.6",
     "next-seo": "^5.15.0",
-    "nouns-builder-components": "^0.1.2",
-    "react": "^18.1.0",
-    "react-countdown": "^2.3.4",
-    "react-dom": "^18.1.0",
+    "nouns-builder-components": "^0.1.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-icons": "^4.6.0",
     "react-loading-skeleton": "^3.1.0",
-    "sass": "^1.56.1",
     "usehooks-ts": "^2.9.1",
-    "wagmi": "^0.9.0"
+    "wagmi": "^0.12.19",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/node": "^17.0.35",
-    "@types/react": "^18.0.9",
-    "autoprefixer": "^10.4.12",
-    "concurrently": "^7.4.0",
-    "eslint": "^8.23.1",
-    "eslint-config-next": "^12.1.6",
-    "postcss": "^8.4.18",
-    "tailwindcss": "^3.2.0",
-    "typescript": "^4.7.4"
+    "@types/node": "^20.8.8",
+    "@types/react": "^18.2.31",
+    "@types/react-dom": "^18.2.14",
+    "autoprefixer": "^10.4.16",
+    "eslint": "8.52.0",
+    "eslint-config-next": "13.5.6",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2",
+    "postcss": "^8.4.31",
+    "prettier": "3.0.3",
+    "tailwindcss": "^3.3.4",
+    "typescript": "^5.2.2"
+  },
+  "eslintConfig": {
+    "extends": "next/core-web-vitals"
   }
 }

@@ -2,7 +2,7 @@
 
 ![purple.construction redesign screenshot](https://github.com/dylsteck/purple.construction/blob/main/public/purple/new-website-screenshot.png?raw=true)
 
-Official site for [Purple DAO](purple.construction), whose goal is to proliferate the [Farcaster](https://farcaster.xyz) ecosystem. 
+Official site for [Purple DAO](https://purple.construction), whose goal is to proliferate the [Farcaster](https://farcaster.xyz) ecosystem.
 
 ### About this repo
 

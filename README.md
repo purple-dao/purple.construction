@@ -1,5 +1,9 @@
 ## purple.construction
 
+> 🚧 Work In Progress
+>
+> [I'm](https://warpcast.com/dylsteck.eth) currently redesigning the site, feel free to reach out if you have any feedback or want to follow along!
+
 ![purple.construction redesign screenshot](https://github.com/dylsteck/purple.construction/blob/main/public/purple/new-website-screenshot.png?raw=true)
 
 Official site for [Purple DAO](https://purple.construction), whose goal is to proliferate the [Farcaster](https://farcaster.xyz) ecosystem.

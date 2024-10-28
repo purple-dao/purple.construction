@@ -1,19 +1,18 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
-    async redirects() {
-        return [
-         {
-            source: '/',
-            destination: 'https://nouns.build/dao/base/0x8de71d80eE2C4700bC9D4F8031a2504Ca93f7088',
-            permanent: true,
-          },
-          {
-            source: '/:path*',
-            destination: 'https://nouns.build/dao/base/0x8de71d80eE2C4700bC9D4F8031a2504Ca93f7088',
-            permanent: true,
-          },
-        ]
-    },
+  output: 'export',
+  reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
+  trailingSlash: true,
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, net: false, tls: false };
+    config.externals.push('pino-pretty', 'lokijs', 'encoding'); // Rainbowkit polyfills
+
+    return config;
+  },
 };
 
 export default nextConfig;

@@ -12,7 +12,7 @@ import type { AuctionData, DaoInfo } from '../types';
 
 const defaultData = {
   auction: {} as AuctionData,
-  minBid: formatEther(parseEther('0.05')),
+  minBid: parseEther('0.05'),
   minPctIncrease: 10n,
 };
 
@@ -33,6 +33,7 @@ export const useAuction = (dao: DaoInfo | undefined) => {
       if (!collection || !chain) return;
       return fetchAuctionData({ collection, chain });
     },
+    enabled: !!collection && !!chain,
   });
 
   const { data: contractData } = useReadContracts({
@@ -59,7 +60,7 @@ export const useAuction = (dao: DaoInfo | undefined) => {
     const localMinPctIncrease = minPctIncrease || defaultData.minPctIncrease;
     const { highestBid } = auctionData;
 
-    if (!highestBid || Number(highestBid) < 0) return formatEther(reservePrice || 0n);
+    if (!highestBid || Number(highestBid) < 0) return reservePrice || 0n;
 
     const bid = parseEther(highestBid);
     if (bid < 0n || !localMinPctIncrease) return defaultData.minBid;
@@ -120,11 +121,11 @@ export const useAuction = (dao: DaoInfo | undefined) => {
     formData: {
       attributes: {},
       input: {
-        value: userBid,
+        value: userBid || 0n,
         min: minBid,
         step: 'any',
         type: 'number',
-        placeholder: `${minBid} or more`,
+        placeholder: `${formatEther(BigInt(minBid || 0n))} or more`,
         onChange: handleUserBidChange,
       },
       btn: {

@@ -46,6 +46,6 @@ export default tsEslint.config(
     },
   },
   {
-    ignores: ['.next', 'node_modules/*', 'dist/*'],
+    ignores: ['.next', 'node_modules/*', 'dist/*', 'out/*'],
   },
 );

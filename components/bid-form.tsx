@@ -7,7 +7,15 @@ import { useWriteContract } from 'wagmi';
 import { AuctionABI } from '@/lib/builder/abis';
 // import { applyTheme } from '../themes/utils';
 
-export const BidForm = ({ auctionData, formData, dao }: any) => {
+export const BidForm = ({
+  auctionData,
+  formData,
+  dao,
+}: {
+  auctionData: any;
+  formData: any;
+  dao: any;
+}) => {
   // const ref = useRef(null);
   const { writeContractAsync } = useWriteContract();
 
@@ -16,7 +24,7 @@ export const BidForm = ({ auctionData, formData, dao }: any) => {
   const settleAuction = async () => {
     await writeContractAsync({
       address: dao.contracts.auction as `0x${string}`,
-      chainId: dao.chainId,
+      chainId: 8543, // dao.chainId,
       abi: AuctionABI,
       functionName: 'settleCurrentAndCreateNewAuction',
     });
@@ -25,7 +33,7 @@ export const BidForm = ({ auctionData, formData, dao }: any) => {
   const placeBid = async () => {
     writeContractAsync({
       address: dao.contracts.auction as `0x${string}`,
-      chainId: dao.chainId,
+      chainId: 8543, // dao.chainId,
       abi: AuctionABI,
       functionName: 'createBid',
       args: [BigInt(String(auctionData.auctionId))],

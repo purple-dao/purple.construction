@@ -1,5 +1,8 @@
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime.js';
+
+import { env } from '@/lib/env';
+
 dayjs.extend(relativeTime);
 
 export const logWarning = (type: string, collection: string, chain: string = 'MAINNET') => {
@@ -9,7 +12,7 @@ export const logWarning = (type: string, collection: string, chain: string = 'MA
 };
 
 // TODO would want something more robust for multiple chains
-const DEFAULT_GRAPHQL_URL = process.env.NEXT_PUBLIC_GRAPHQL_URL ?? '';
+const DEFAULT_GRAPHQL_URL = env.NEXT_PUBLIC_GRAPHQL_URL ?? '';
 
 export const fetchDataWithQuery = async (
   query: string,

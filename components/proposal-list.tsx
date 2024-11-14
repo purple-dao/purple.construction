@@ -21,7 +21,16 @@ export const ProposalList = ({ opts = {} }: ComponentConfig) => {
     return proposals;
   }, [proposals, sortDirection]);
 
-  if (!sortedProposals?.length || isLoading) {
+  console.log(isLoading);
+  if (isLoading) {
+    return (
+      <div id="proposal-list" className="flex flex-col gap-6">
+        <img src="/loading-noggles.gif" alt="loading" />
+      </div>
+    );
+  }
+
+  if (!sortedProposals?.length) {
     return (
       <div id="proposal-list" className="flex flex-col gap-6">
         <p>No proposals found</p>

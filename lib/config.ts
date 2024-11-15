@@ -7,7 +7,7 @@ export const DAO_CONFIG = {
   description:
     "Purple is a DAO whose goal is to proliferate and expand the Farcaster protocol and ecosystem.",
   url: "https://purple.construction/",
-  shareGraphic: "https://purple.construction/purple/share-graphic.png",
+  shareGraphic: "https://purple.construction/img/purple-square.png",
   discordLink: "https://discord.gg/4GUeHBRBNV",
   twitterLink: "",
   farcasterLink: "https://warpcast.com/purple",

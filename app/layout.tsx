@@ -8,6 +8,7 @@ import { type ReactNode } from 'react';
 import { Footer } from '@/components/footer';
 import { Nav } from '@/components/nav';
 import { DAO_CONFIG } from '@/lib/config';
+import { env } from '@/lib/env';
 
 import Providers from './providers';
 
@@ -47,13 +48,13 @@ const Layout = ({ children }: LayoutProps) => {
         <meta name={DAO_CONFIG.title} content={DAO_CONFIG.description} />
         <link rel="icon" href="/purple/favicon.ico" />
 
-        <Script src="https://www.googletagmanager.com/gtag/js?id=G-RJPL0Z2LLC" />
+        <Script src={`https://www.googletagmanager.com/gtag/js?id=${env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ""}`} />
         <Script id="google-analytics">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){ dataLayer.push(arguments); }
             gtag('js', new Date());
-            gtag('config', 'G-RJPL0Z2LLC');
+            gtag('config', '${env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID ?? ""}');
           `}
         </Script>
       </head>

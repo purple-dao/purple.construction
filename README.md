@@ -1,6 +1,6 @@
 ## purple.construction
 
-![purple.construction redesign screenshot](https://i.imgur.com/pggX9vr.png)
+![purple.construction 2024 screenshot](https://i.imgur.com/xLDigs1.png)
 
 Official site for [Purple DAO](https://purple.construction), whose goal is to proliferate the [Farcaster](https://farcaster.xyz) ecosystem.
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import React, { useMemo } from 'react';
@@ -41,24 +42,36 @@ export const ProposalList = ({ opts = {} }: ComponentConfig) => {
   if (!dao) return null;
 
   return (
-    <div className="flex flex-col gap-6">
-      <div id="proposal-list" className="flex flex-col gap-6 pt-10">
+    <div>
+      <div id="proposal-list" className="flex flex-col gap-6">
         {sortedProposals.map((proposal: any, i: number) => {
           if (maxProposals && i >= maxProposals) return null;
           return <ProposalListItem key={proposal.id} dao={dao} proposal={proposal} />;
         })}
       </div>
 
-      <div className="flex justify-center pt-10">
-        {/* this token ID was the last one issued on mainnet */}
-        <a
-          href={`https://nouns.build/dao/ethereum/${DAO_CONFIG.v1Token}/478?tab=activity`}
-          target="_blank"
-        >
-          <p className="rounded-md border border-theme-border p-3 shadow-none transition-shadow hover:shadow-md md:flex-row md:p-4">
-            View 61 proposals from Ethereum
-          </p>
-        </a>
+      <div className="flex flex-col gap-3 items-center my-4 pt-6">
+        <div className="flex justify-center">
+          <a
+            href={`https://nouns.build/dao/base/${DAO_CONFIG.token}?tab=activity`}
+            target="_blank"
+          >
+            <p className="rounded-md border border-theme-border p-3 shadow-none transition-shadow hover:shadow-md md:flex-row md:p-4">
+              View all proposals from Base
+            </p>
+          </a>
+        </div>
+        <div className="flex justify-center">
+          {/* this token ID was the last one issued on mainnet */}
+          <a
+            href={`https://nouns.build/dao/ethereum/${DAO_CONFIG.v1Token}/478?tab=activity`}
+            target="_blank"
+          >
+            <p className="rounded-md border border-theme-border p-3 shadow-none transition-shadow hover:shadow-md md:flex-row md:p-4">
+              View 61 proposals from Ethereum
+            </p>
+          </a>
+        </div>
       </div>
     </div>
   );

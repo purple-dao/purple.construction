@@ -43,6 +43,9 @@ export const Nav = () => {
             <Link href="/about">About</Link>
           </li>
           <li className="block">
+            <Link href="/casts">Casts</Link>
+          </li>
+          <li className="block">
             <Link href="/proposals">Proposals</Link>
           </li>
           {isMounted() && isConnected && (

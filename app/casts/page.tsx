@@ -1,19 +1,19 @@
 import { NextPage } from 'next';
 
+import Casts from '@/components/casts';
 import Page from '@/components/page';
 import PageBody from '@/components/page-body';
 import PageHeader from '@/components/page-header';
-import { ProposalList } from '@/components/proposal-list';
 
-const Proposals: NextPage = () => {
+const CastsPage: NextPage = () => {
   return(
     <Page>
-      <PageHeader pageName="Proposals" />
+      <PageHeader pageName="Casts" />
       <PageBody>
-        <ProposalList opts={{ theme: 'base' }} />
+        <Casts />
       </PageBody>
     </Page>
   )
 };
 
-export default Proposals;
+export default CastsPage;

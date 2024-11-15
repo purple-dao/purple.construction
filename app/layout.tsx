@@ -1,4 +1,5 @@
 import 'react-loading-skeleton/dist/skeleton.css';
+import '@neynar/react/dist/style.css';
 
 import Script from 'next/script';
 import { ReactNode } from 'react';

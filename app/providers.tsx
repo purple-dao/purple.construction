@@ -3,6 +3,7 @@
 import '@/styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
+import { NeynarContextProvider, Theme } from "@neynar/react";
 import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { coinbaseWallet, injectedWallet, rainbowWallet } from '@rainbow-me/rainbowkit/wallets';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -72,9 +73,20 @@ function Providers({ children }: { children: ReactNode }) {
           //   accentColorForeground: 'white',
           // })}
           >
-            <BuilderDAO collection={DAO_CONFIG.token} chain="BASE">
-              {children}
-            </BuilderDAO>
+            <NeynarContextProvider
+              settings={{
+                clientId: process.env.NEXT_PUBLIC_NEYNAR_CLIENT_ID || "",
+                defaultTheme: Theme.Light,
+                eventsCallbacks: {
+                  onAuthSuccess: () => {},
+                  onSignout() {},
+                },
+              }}
+            >
+              <BuilderDAO collection={DAO_CONFIG.token} chain="BASE">
+                {children}
+              </BuilderDAO>
+            </NeynarContextProvider>
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>

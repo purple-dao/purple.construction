@@ -18,7 +18,7 @@ export const Nav = () => {
   });
 
   return (
-    <div className="invisible md:visible w-0 md:w-1/6 h-auto mt-5">
+    <div className="hidden md:block md:w-1/6 h-auto mt-5">
       <nav>
         <ul className="flex flex-col gap-2 p-3 md:gap-5 md:p-5">
           <li className="block mb-2 md:mb-3">

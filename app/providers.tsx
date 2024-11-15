@@ -4,7 +4,7 @@ import '@/styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
 import { NeynarContextProvider, Theme } from "@neynar/react";
-import { connectorsForWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { connectorsForWallets, darkTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { coinbaseWallet, injectedWallet, rainbowWallet } from '@rainbow-me/rainbowkit/wallets';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Londrina_Solid } from 'next/font/google';
@@ -68,10 +68,10 @@ function Providers({ children }: { children: ReactNode }) {
       <WagmiProvider config={wagmiConfig}>
         <QueryClientProvider client={queryClient}>
           <RainbowKitProvider
-          // theme={darkTheme({
-          //   accentColor: '#8465CB',
-          //   accentColorForeground: 'white',
-          // })}
+          theme={darkTheme({
+            accentColor: '#8465CB',
+            accentColorForeground: 'white',
+          })}
           >
             <NeynarContextProvider
               settings={{

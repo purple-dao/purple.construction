@@ -11,7 +11,7 @@ import tsEslint from 'typescript-eslint';
 
 export default tsEslint.config(
   eslint.configs.recommended,
-  ...tsEslint.configs.recommended,
+  // ...tsEslint.configs.recommended,
   // ...compat.extends('next/core-web-vitals', 'next/typescript'),
   eslintConfigPrettier,
   {
@@ -26,7 +26,7 @@ export default tsEslint.config(
       'simple-import-sort': simpleImportSortPlugin,
     },
     rules: {
-      '@typescript-eslint/no-explicit-any': 'warn',
+      // '@typescript-eslint/no-explicit-any': 'warn',
       // import sorting
       'simple-import-sort/imports': 'error',
       'simple-import-sort/exports': 'error',

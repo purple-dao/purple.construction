@@ -16,6 +16,7 @@ import { base, mainnet } from 'wagmi/chains';
 import { BuilderDAO } from '@/lib/builder';
 import { DAO_CONFIG } from '@/lib/config';
 import { env } from '@/lib/env';
+import FrameProvider from '@/components/frame-provider';
 
 const queryClientOptions = {
   defaultOptions: {
@@ -84,7 +85,9 @@ function Providers({ children }: { children: ReactNode }) {
               }}
             >
               <BuilderDAO collection={DAO_CONFIG.token} chain="BASE">
-                {children}
+                <FrameProvider>
+                  {children}
+                </FrameProvider>
               </BuilderDAO>
             </NeynarContextProvider>
           </RainbowKitProvider>

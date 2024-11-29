@@ -7,7 +7,7 @@ import { type ReactNode } from 'react';
 // import MobileMenu from './MobileMenu';
 import { Footer } from '@/components/footer';
 import { Nav } from '@/components/nav';
-import { DAO_CONFIG } from '@/lib/config';
+import { DAO_CONFIG, FRAME } from '@/lib/config';
 import { env } from '@/lib/env';
 
 import Providers from './providers';
@@ -16,28 +16,33 @@ interface LayoutProps {
   children?: ReactNode;
 }
 
-export const metadata = {
-  title: DAO_CONFIG.title,
-  description: DAO_CONFIG.description,
-  openGraph: {
+export function generateMetadata() {
+  return {
     title: DAO_CONFIG.title,
     description: DAO_CONFIG.description,
-    url: DAO_CONFIG.url,
-    siteName: DAO_CONFIG.title,
-    images: [
-      {
-        url: DAO_CONFIG.shareGraphic,
-        width: 500,
-        height: 500,
-        alt: `${DAO_CONFIG.title} share graphic`,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    site: DAO_CONFIG.url,
-    creator: "",
-  },
+    openGraph: {
+      title: DAO_CONFIG.title,
+      description: DAO_CONFIG.description,
+      url: DAO_CONFIG.url,
+      siteName: DAO_CONFIG.title,
+      images: [
+        {
+          url: DAO_CONFIG.shareGraphic,
+          width: 500,
+          height: 500,
+          alt: `${DAO_CONFIG.title} share graphic`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: DAO_CONFIG.url,
+      creator: "",
+    },
+    other: {
+      "fc:frame": JSON.stringify(FRAME)
+    }
+  }
 };
 
 const Layout = ({ children }: LayoutProps) => {

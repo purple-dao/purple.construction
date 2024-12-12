@@ -10,7 +10,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@farcaster/frame-sdk": "^0.0.3",
+    "@farcaster/frame-sdk": "^0.0.16",
     "@neynar/react": "^0.9.7",
     "@pigment-css/react": "^0.0.27",
     "@rainbow-me/rainbowkit": "^2",

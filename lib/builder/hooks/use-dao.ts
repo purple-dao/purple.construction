@@ -24,7 +24,7 @@ export const useDao = (): DaoInfo | null => {
 
   const { data: contractData } = useReadContract({
     address: collection as `0x${string}`,
-    chainId: 8453, // chain === 'SEPOLIA' ? 11155111 : 1,
+    chainId: 8453,
     abi: TokenABI,
     functionName: 'contractURI',
   });

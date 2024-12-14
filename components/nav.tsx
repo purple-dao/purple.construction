@@ -14,7 +14,7 @@ export const Nav = () => {
 
   const { data: treasuryBalance } = useBalance({
     address: DAO_CONFIG.treasury as `0x${string}`,
-    chainId: 8453,
+    chainId: 8453
   });
 
   return (
@@ -63,33 +63,19 @@ export const Nav = () => {
               DAO
             </a>
           </li>
-          {/* Social Media Icons(to add back in) */}
-          {/* {daoConfig.discordLink && (
-                  <li className="flex items-center">
-                    <a href={daoConfig.discordLink} rel="noopener">
-                      <FaDiscord />
-                    </a>
-                  </li>
-                )}
-                {daoConfig.twitterLink && (
-                  <li className="flex items-center">
-                    <a href={daoConfig.twitterLink} rel="noopener">
-                      <FaTwitter />
-                    </a>
-                  </li>
-                )}
-                {daoConfig.farcasterLink && (
-                  <li className="flex items-center">
-                    <a href={daoConfig.farcasterLink} rel="noopener">
-                      <img
-                        src="/img/logo-farcaster.svg"
-                        alt="Farcaster logo"
-                        className="w-4"
-                      />
-                    </a>
-                  </li>
-                )} */}
-          {/* TODO; Add these icons back in, as well as GH link */}
+          {/* Farcaster Icon(to add back in) */}
+          {/* 
+            {daoConfig.farcasterLink && (
+              <li className="flex items-center">
+                <a href={daoConfig.farcasterLink} rel="noopener">
+                  <img
+                    src="/img/logo-farcaster.svg"
+                    alt="Farcaster logo"
+                    className="w-4"
+                  />
+                </a>
+              </li>
+            )} */}
           <div className="max-w-[5vw]">
             <ConnectButton
               showBalance={{

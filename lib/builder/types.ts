@@ -34,7 +34,7 @@ export type DaoInfo = {
   owners: number;
   totalSupply: number;
   chain: DaoConfig['chain'];
-  chainId: 1 | 8453 | 11155111;
+  chainId: 1 | 8453;
   contracts: {
     auction: string;
     collection: string;

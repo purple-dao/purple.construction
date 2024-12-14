@@ -4,18 +4,19 @@ import '@/styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
 import { NeynarContextProvider, Theme } from '@neynar/react';
-import { connectorsForWallets, darkTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
-import { coinbaseWallet, injectedWallet, rainbowWallet } from '@rainbow-me/rainbowkit/wallets';
+import { darkTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Londrina_Solid } from 'next/font/google';
 import { ReactNode, useState } from 'react';
 import { http } from 'viem';
 import { createConfig, WagmiProvider } from 'wagmi';
-import { base, mainnet } from 'wagmi/chains';
+import { mainnet, base } from 'wagmi/chains';
 
 import { BuilderDAO } from '@/lib/builder';
 import { DAO_CONFIG } from '@/lib/config';
 import { env } from '@/lib/env';
+import FrameProvider from '@/components/providers/frame-provider';
+import { frameConnector } from '@/lib/connector';
 
 const queryClientOptions = {
   defaultOptions: {
@@ -34,29 +35,12 @@ const londrinaSolid = Londrina_Solid({
   display: 'swap',
 });
 
-const connectors = connectorsForWallets(
-  [
-    {
-      groupName: 'Recommended',
-      wallets: [coinbaseWallet, rainbowWallet],
-    },
-    {
-      groupName: 'All',
-      wallets: [injectedWallet],
-    },
-  ],
-  {
-    appName: 'Purple DAO',
-    projectId: env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
-  },
-);
-
 export const wagmiConfig = createConfig({
-  connectors,
+  connectors: [frameConnector()],
   chains: [mainnet, base],
   transports: {
     [mainnet.id]: http(`https://eth-mainnet.g.alchemy.com/v2/${env.NEXT_PUBLIC_ALCHEMY_API_KEY}`),
-    [base.id]: http(`https://base-mainnet.g.alchemy.com/v2/${env.NEXT_PUBLIC_ALCHEMY_API_KEY}`),
+    [base.id]: http(`https://base-mainnet.g.alchemy.com/v2/${env.NEXT_PUBLIC_ALCHEMY_API_KEY}`)
   },
 });
 
@@ -84,7 +68,9 @@ function Providers({ children }: { children: ReactNode }) {
               }}
             >
               <BuilderDAO collection={DAO_CONFIG.token} chain="BASE">
-                {children}
+                <FrameProvider>
+                  {children}
+                </FrameProvider>
               </BuilderDAO>
             </NeynarContextProvider>
           </RainbowKitProvider>

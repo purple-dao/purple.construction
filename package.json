@@ -10,11 +10,12 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@farcaster/frame-sdk": "^0.0.16",
     "@neynar/react": "^0.9.7",
     "@pigment-css/react": "^0.0.27",
     "@rainbow-me/rainbowkit": "^2",
     "@t3-oss/env-nextjs": "^0.7.3",
-    "@tanstack/react-query": "^5.59.16",
+    "@tanstack/react-query": "^5.59.20",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.13",
     "ethers": "^5.7.2",
@@ -29,8 +30,8 @@
     "react-loading-skeleton": "^3.5.0",
     "swr": "^2.2.5",
     "usehooks-ts": "^2.16.0",
-    "viem": "^2.21.35",
-    "wagmi": "^2.10.1",
+    "viem": "2.x",
+    "wagmi": "^2.13.x",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -59,6 +60,5 @@
     "tailwindcss": "^3.4.14",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.11.0"
-  },
-  "packageManager": "pnpm@9.1.0"
+  }
 }

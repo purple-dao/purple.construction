@@ -6,9 +6,22 @@ export const DAO_CONFIG = {
   treasury: '0xd1a84b374fd0b9466c1e99ddce15dc6179c8376a',
   description:
     "Purple is a DAO whose goal is to proliferate and expand the Farcaster protocol and ecosystem.",
-  url: "https://purple.construction/",
+  url: "https://purple.construction",
   shareGraphic: "https://purple.construction/img/purple-square.png",
-  discordLink: "https://discord.gg/4GUeHBRBNV",
-  twitterLink: "",
   farcasterLink: "https://warpcast.com/purple",
+};
+
+export const FRAME = {
+  version: "next",
+  imageUrl: DAO_CONFIG.shareGraphic,
+  button: {
+    title: "View Purple Auction",
+    action: {
+      type: "launch_frame",
+      name: "Purple DAO",
+      url: DAO_CONFIG.url,
+      splashImageUrl: DAO_CONFIG.shareGraphic,
+      splashBackgroundColor: "#FFFFFF",
+    },
+  },
 };

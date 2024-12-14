@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import Page from '@/components/page';
 import PageBody from '@/components/page-body';
 import PageHeader from '@/components/page-header';
+import { DAO_CONFIG } from '@/lib/config';
 
 const About: NextPage = () => {
   return (
@@ -27,7 +28,7 @@ const About: NextPage = () => {
           <br />
           You become a DAO Member by purchasing a{' '}
           <a
-            href="https://nouns.build/dao/0xa45662638E9f3bbb7A6FeCb4B17853B7ba0F3a60"
+            href={`https://nouns.build/dao/base/${DAO_CONFIG.token}`}
             target="_blank"
           >
             Purple

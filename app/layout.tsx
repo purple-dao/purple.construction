@@ -4,13 +4,12 @@ import '@neynar/react/dist/style.css';
 import Script from 'next/script';
 import { type ReactNode } from 'react';
 
-// import MobileMenu from './MobileMenu';
-import { Footer } from '@/components/footer';
 import { Nav } from '@/components/nav';
+import { Footer } from '@/components/footer';
 import { DAO_CONFIG, FRAME } from '@/lib/config';
 import { env } from '@/lib/env';
-
-import Providers from './providers';
+import Providers from '@/components/providers';
+import PageProvider from '@/components/providers/page-provider';
 
 interface LayoutProps {
   children?: ReactNode;
@@ -70,24 +69,9 @@ const Layout = ({ children }: LayoutProps) => {
             <Nav />
             <main className="h-auto flex-col gap-8 w-full">
               <div className="flex flex-row gap-0 px-0 md:px-10 w-full justify-center">
-                <div className="w-full max-w-5xl h-auto flex flex-col items-center border-l border-r border-gray-300 pb-10">
-                  {/* {(router.pathname === "/" && isMobile) ||
-                    router.pathname !== "/" ? (
-                      <div className="w-full p-3 pt-3 border-b border-gray-400 flex flex-row gap-2 items-center justify-between">
-                        <p className="pl-3 text-xl">
-                          {router.pathname === "/"
-                            ? "Home"
-                            : (router.pathname as string)
-                                .replace("/", "")
-                                .replace(/^\w/, (c) => c.toUpperCase())}
-                        </p>
-                        {isMobile && <MobileMenu />}
-                      </div>
-                    ) : (
-                      <></>
-                    )} */}
+                <PageProvider>
                   {children}
-                </div>
+                </PageProvider>
               </div>
             </main>
           </div>

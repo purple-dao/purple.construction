@@ -15,7 +15,7 @@ export const FRAME = {
   version: "next",
   imageUrl: DAO_CONFIG.shareGraphic,
   button: {
-    title: "View Auction",
+    title: "View Purple Auction",
     action: {
       type: "launch_frame",
       name: "Purple DAO",

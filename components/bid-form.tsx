@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { parseEther } from 'viem';
-import { useWriteContract } from 'wagmi';
+import { useAccount, useChainId, useSwitchChain, useWriteContract, useSimulateContract } from 'wagmi';
+import { base } from 'wagmi/chains';
 
 import { AuctionABI } from '@/lib/builder/abis';
-// import { applyTheme } from '../themes/utils';
 
 export const BidForm = ({
   auctionData,
@@ -16,29 +16,56 @@ export const BidForm = ({
   formData: any;
   dao: any;
 }) => {
-  // const ref = useRef(null);
+  const account = useAccount();
+  const currentChainId = useChainId();
+  const { switchChainAsync } = useSwitchChain();
   const { writeContractAsync } = useWriteContract();
-
   const [isComplete, setIsComplete] = useState<boolean>(false);
+  const [isSimulationPossible, setIsSimulationPossible] = useState<boolean>(true);
+
+  const { data: simulationData, error: simulationError } = useSimulateContract({
+    address: dao.contracts.auction as `0x${string}`,
+    abi: AuctionABI,
+    functionName: 'createBid',
+    args: [BigInt(String(auctionData.auctionId))],
+    value: parseEther(formData.input.value || '0'),
+    query: {
+      enabled: !isComplete && formData.input.value !== undefined,
+    },
+  });
 
   const settleAuction = async () => {
+    if (currentChainId !== base.id) {
+      await switchChainAsync({ chainId: base.id });
+    }
+
     await writeContractAsync({
       address: dao.contracts.auction as `0x${string}`,
-      chainId: 8543, // dao.chainId,
+      chainId: base.id,
       abi: AuctionABI,
       functionName: 'settleCurrentAndCreateNewAuction',
     });
   };
 
   const placeBid = async () => {
-    writeContractAsync({
-      address: dao.contracts.auction as `0x${string}`,
-      chainId: 8543, // dao.chainId,
-      abi: AuctionABI,
-      functionName: 'createBid',
-      args: [BigInt(String(auctionData.auctionId))],
-      value: parseEther(formData.input.value || '0'),
-    });
+    if (currentChainId !== base.id) {
+      await switchChainAsync({ chainId: base.id });
+    }
+
+    try {
+      const result = await writeContractAsync({
+        address: dao.contracts.auction as `0x${string}`,
+        chainId: base.id,
+        abi: AuctionABI,
+        functionName: 'createBid',
+        args: [BigInt(String(auctionData.auctionId))],
+        value: parseEther(formData.input.value || '0'),
+      });
+      return result;
+    } catch (error) {
+      console.error('Error placing bid:', error);
+      throw error;
+    }
   };
 
   const handleSubmit = (event: any) => {
@@ -66,18 +93,19 @@ export const BidForm = ({
     return () => clearTimeout(timer);
   }, [auctionData]);
 
-  // useEffect(() => {
-  //   if (ref.current != null) {
-  //     const target = ref.current as HTMLElement;
-  //     applyTheme(target, theme);
-  //   }
-  // }, [theme, ref]);
+  useEffect(() => {
+    if (simulationError) {
+      console.error('Bid simulation failed:', simulationError);
+      setIsSimulationPossible(false);
+    } else if (simulationData) {
+      setIsSimulationPossible(true);
+    }
+  }, [simulationError, simulationData]);
 
   return (
     <form
       onSubmit={handleSubmit}
       className={'mt-4 flex w-full flex-col gap-5 font-bold sm:flex-row md:mt-8'}
-      // ref={ref}
     >
       {isComplete ? (
         <button
@@ -101,9 +129,19 @@ export const BidForm = ({
           <button
             type="submit"
             {...formData.btn}
+            onClick={(e) => {
+              e.preventDefault();
+              placeBid();
+            }}
+            disabled={
+              isComplete || 
+              !isSimulationPossible || 
+              !formData.input.value || 
+              !account.address
+            }
             className="mb-2 mr-2 flex-shrink-0 rounded-lg border-2 border-text-base px-5 py-2.5 text-xl disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Place bid
+            {!account.address ? 'Connect Wallet' : 'Place bid'}
           </button>
         </>
       )}

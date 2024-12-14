@@ -18,22 +18,39 @@ const MobileMenu: NextPage = () => {
 
   const { data: treasuryBalance } = useBalance({
     address: DAO_CONFIG.treasury as `0x${string}`,
+    chainId: 8453
   });
 
   const closeMenu = () => {
     setExpanded(false);
   };
 
+  const menuLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/proposals', label: 'Proposals' },
+    { 
+      href: 'https://nouns.build/dao/ethereum/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60/proposal/create', 
+      label: 'Create Proposal',
+      visibleWhen: isConnected 
+    },
+    { 
+      href: 'https://nouns.build/dao/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60', 
+      label: 'DAO',
+      external: true 
+    }
+  ];
+
   return (
     <>
       {expanded ? (
         <div className="fixed top-0 left-0 w-full h-full bg-white z-50">
-          <div className="flex flex-row justify-between items-start sm:pl-5 pl-10 sm:pr-5 pr-10 sm:pt-5 pt-10">
-            <div className="flex justify-start pl-10">
-              <ul className="flex flex-col gap-2 p-3 pt-0 md:gap-5 md:p-5 text-left">
+          <div className="flex flex-row justify-between items-start sm:px-5 px-4 sm:pt-5 pt-6">
+            <div className="flex justify-start w-full">
+              <ul className="flex flex-col gap-2 p-2 pt-0 md:gap-5 text-left w-full">
                 <li className="block mb-2 md:mb-3">
-                  <Link href="/">
-                    <p className="text-2xl font-bold pb-3">Purple</p>
+                  <Link href="/" onClick={closeMenu}>
+                    <p className="text-2xl font-bold pb-2">Purple</p>
                   </Link>
                   <div className="flex flex-col pb-2">
                     <p className="font-bold leading-none">
@@ -49,38 +66,34 @@ const MobileMenu: NextPage = () => {
                     </p>
                   </div>
                 </li>
-                <li className="block">
-                  <Link href="/about">About</Link>
-                </li>
-                <li className="block">
-                  <Link href="/proposals">Proposals</Link>
-                </li>
-                {isConnected && (
-                  <li className="block">
-                    <Link href="https://nouns.build/dao/ethereum/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60/proposal/create">
-                      Create Proposal
-                    </Link>
-                  </li>
-                )}
-                <li className="block">
-                  <Link
-                    href="https://nouns.build/dao/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60"
-                    rel="noopener"
-                    className="external"
-                  >
-                    DAO
-                  </Link>
-                </li>
+                {menuLinks.map((link) => (
+                  (!link.visibleWhen || link.visibleWhen) && (
+                    <li key={link.href} className="block">
+                      <Link 
+                        href={link.href} 
+                        onClick={closeMenu}
+                        {...(link.external ? { target: '_blank', rel: 'noopener' } : {})}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  )
+                ))}
                 <li className="block pt-1">
                   <ConnectButton />
                 </li>
               </ul>
             </div>
-            <button onClick={closeMenu}>Close</button>
+            <button 
+              onClick={closeMenu} 
+              className="absolute top-4 right-4 text-xl font-bold"
+            >
+              Close
+            </button>
           </div>
         </div>
       ) : (
-        <div className="pr-3">
+        <div className="pr-3 cursor-pointer">
           <FaBars onClick={() => setExpanded(true)} />
         </div>
       )}

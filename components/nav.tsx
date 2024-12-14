@@ -14,7 +14,7 @@ export const Nav = () => {
 
   const { data: treasuryBalance } = useBalance({
     address: DAO_CONFIG.treasury as `0x${string}`,
-    chainId: 8453,
+    chainId: 8453
   });
 
   return (

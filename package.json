@@ -10,8 +10,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@farcaster/frame-sdk": "^0.0.16",
-    "@farcaster/frame-wagmi-connector": "^0.0.1",
+    "@farcaster/frame-sdk": "^0.0.18",
+    "@farcaster/frame-wagmi-connector": "^0.0.3",
     "@neynar/react": "^0.9.7",
     "@pigment-css/react": "^0.0.27",
     "@rainbow-me/rainbowkit": "^2",

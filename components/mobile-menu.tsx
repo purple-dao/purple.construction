@@ -28,6 +28,7 @@ const MobileMenu: NextPage = () => {
   const menuLinks = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
+    { href: '/casts', label: 'Casts' },
     { href: '/proposals', label: 'Proposals' },
     { 
       href: 'https://nouns.build/dao/ethereum/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60/proposal/create', 

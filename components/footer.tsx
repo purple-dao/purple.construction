@@ -1,10 +1,12 @@
+import { FrameLink } from "./frame-link";
+
 export const Footer = () => {
   return (
     <footer className="text-center flex flex-col gap-5 justify-center mb-10">
       <hr className="w-full border-gray-300 py-3" />
       <div className="flex flex-col gap-2 items-center">
         <div className="max-w-[5rem]">
-          <a href="https://nouns.build/" target="_blank">
+          <FrameLink href="https://nouns.build/">
             <svg
               xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 696 186"
@@ -62,13 +64,13 @@ export const Footer = () => {
                 </clipPath>
               </defs>
             </svg>
-          </a>
+          </FrameLink>
         </div>
         <p>
           built on{' '}
-          <a href="https://nouns.build/" target="_blank" className="underline">
+          <FrameLink href="https://nouns.build/" className="underline">
             nouns builder
-          </a>
+          </FrameLink>
         </p>
       </div>
     </footer>

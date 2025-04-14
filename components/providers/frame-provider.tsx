@@ -1,23 +1,48 @@
 'use client'
 
-import sdk from "@farcaster/frame-sdk";
-import { useEffect, useState } from "react";
+import { sdk } from "@farcaster/frame-sdk";
+import type { Context } from "@farcaster/frame-sdk";
+import React, { createContext, useState, useContext, useMemo } from "react";
+
+interface FrameContextType {
+  context: Context.FrameContext | undefined;
+  ready: boolean;
+}
+
+const FrameContext = createContext<FrameContextType | undefined>(undefined);
+
+export function useFrameContext() {
+  const context = useContext(FrameContext);
+  if (context === undefined) {
+    throw new Error('useFrameContext must be used within a FrameProvider');
+  }
+  return context;
+}
 
 export default function FrameProvider({ children }: { children: React.ReactNode }){
-    const [isSDKLoaded, setIsSDKLoaded] = useState<boolean>(false);
+    const [context, setContext] = useState<Context.FrameContext | undefined>(undefined);
+    const [ready, setReady] = useState(false);
 
-    useEffect(() => {
-        const load = async () => {
-        sdk.actions.ready();
-        };
-        if (sdk && !isSDKLoaded) {
-        setIsSDKLoaded(true);
-        load();
+    React.useEffect(() => {
+        const init = async () => {
+          const sdkContext = await sdk.context;
+          setContext(sdkContext);
+          setTimeout(() => {
+            sdk.actions.ready();
+            setReady(true);
+          }, 500)
         }
-    }, [isSDKLoaded]);
+        init()
+      }, [])
+
+    const value = useMemo(() => ({
+      context,
+      ready
+    }), [context, ready]);
+
     return(
-        <>
-            {isSDKLoaded ? children : <></>}
-        </>
+        <FrameContext.Provider value={value}>
+         {children}
+        </FrameContext.Provider>
     )
 }

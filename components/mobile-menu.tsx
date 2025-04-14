@@ -28,15 +28,14 @@ const MobileMenu: NextPage = () => {
   const menuLinks = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
-    { href: '/casts', label: 'Casts' },
     { href: '/proposals', label: 'Proposals' },
     { 
-      href: 'https://nouns.build/dao/ethereum/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60/proposal/create', 
+      href: 'https://nouns.build/dao/base/0x8de71d80ee2c4700bc9d4f8031a2504ca93f7088/proposal/create', 
       label: 'Create Proposal',
       visibleWhen: isConnected 
     },
     { 
-      href: 'https://nouns.build/dao/0xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60', 
+      href: 'https://nouns.build/dao/base/0x8de71d80ee2c4700bc9d4f8031a2504ca93f7088', 
       label: 'DAO',
       external: true 
     }

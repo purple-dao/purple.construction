@@ -12,7 +12,7 @@ export const DAO_CONFIG = {
 };
 
 export const FRAME = {
-  version: "next",
+  version: "1",
   imageUrl: DAO_CONFIG.shareGraphic,
   button: {
     title: "View Purple Auction",

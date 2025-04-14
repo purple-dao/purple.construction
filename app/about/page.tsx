@@ -4,6 +4,7 @@ import Page from '@/components/page';
 import PageBody from '@/components/page-body';
 import PageHeader from '@/components/page-header';
 import { DAO_CONFIG } from '@/lib/config';
+import { FrameLink } from '@/components/frame-link';
 
 const About: NextPage = () => {
   return (
@@ -14,9 +15,9 @@ const About: NextPage = () => {
         <p className="pb-7">
           Purple is a DAO whose goal is to proliferate and expand the Farcaster protocol and
           ecosystem. We will fund small grants via{' '}
-          <a href="https://rounds.wtf/purple" target="_blank">
+          <FrameLink href="https://rounds.wtf/purple">
             Rounds.wtf
-          </a>{' '}
+          </FrameLink>{' '}
           and larger on-chain proposals which proliferate Farcaster and/or build on top of the
           protocol.
         </p>
@@ -27,20 +28,17 @@ const About: NextPage = () => {
           <br />
           <br />
           You become a DAO Member by purchasing a{' '}
-          <a
-            href={`https://nouns.build/dao/base/${DAO_CONFIG.token}`}
-            target="_blank"
-          >
+          <FrameLink href={`https://nouns.build/dao/base/${DAO_CONFIG.token}`}>
             Purple
-          </a>{' '}
+          </FrameLink>{' '}
           token at Auction. DAO members have a governance vote, can submit proposals, and can vote on
           Rounds.wtf grants.
           <br />
           <br />
           You are a Purple Community member if you{' '}
-          <a href="https://warpcast.com/~/channel/purple" target="_blank">
+          <FrameLink href="https://warpcast.com/~/channel/purple">
             join our Warpcast channel
-          </a>
+          </FrameLink>
           , build on the protocol, cast about the DAO or help propose, organize, and execute on small
           grants and proposals.
           <br />
@@ -88,9 +86,9 @@ const About: NextPage = () => {
           no governance rights to the Farcaster protocol or client.
           <br />
           <br />
-          <a href="https://merklemanufactory.com/" target="_blank">
+          <FrameLink href="https://merklemanufactory.com/">
             Merkle Manufactory
-          </a>{' '}
+          </FrameLink>{' '}
           is the company behind the Farcaster protocol and official client, Warpcast.
           <br />
           <br />
@@ -107,19 +105,17 @@ const About: NextPage = () => {
         <p>
           The official treasury only exists on Ethereum mainnet, but we have unofficial community
           multi-sig addresses set up on{' '}
-          <a
+          <FrameLink
             href="https://optimistic.etherscan.io/address/0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411"
-            target="_blank"
           >
             Optimism
-          </a>{' '}
+          </FrameLink>{' '}
           and{' '}
-          <a
+          <FrameLink
             href="https://basescan.org/address/0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411"
-            target="_blank"
           >
             Base
-          </a>
+          </FrameLink>
           . You can send funds to 0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411 on those networks and
           they will periodically be bridged back to the main treasury.
         </p>

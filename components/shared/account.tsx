@@ -6,6 +6,7 @@ import type { DaoInfo } from '@/lib/builder/types';
 import { trunc } from '@/lib/builder/utils';
 
 import { Avatar } from './avatar';
+import { FrameLink } from '../frame-link';
 
 type AccountConfig = {
   address: string;
@@ -17,11 +18,9 @@ export const Account = ({ address, chainId, hideAvatar = false }: AccountConfig)
   const { data: ensName } = useEnsName({ address: address as Hex });
 
   return (
-    <a
+    <FrameLink
       href={`https://etherscan.io/address/${address}`}
       className="inline-flex flex-row items-center"
-      target="_blank"
-      rel="noreferrer"
     >
       {!hideAvatar === true && (
         <span className="absolute mr-2 h-6 w-6">
@@ -36,6 +35,6 @@ export const Account = ({ address, chainId, hideAvatar = false }: AccountConfig)
       >
         {ensName || trunc(address)}
       </span>
-    </a>
+    </FrameLink>
   );
 };

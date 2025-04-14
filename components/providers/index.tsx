@@ -3,7 +3,6 @@
 import '@/styles/globals.css';
 import '@rainbow-me/rainbowkit/styles.css';
 
-import { NeynarContextProvider, Theme } from '@neynar/react';
 import { darkTheme, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Londrina_Solid } from 'next/font/google';
@@ -57,22 +56,11 @@ function Providers({ children }: { children: ReactNode }) {
               accentColorForeground: 'white',
             })}
           >
-            <NeynarContextProvider
-              settings={{
-                clientId: process.env.NEXT_PUBLIC_NEYNAR_CLIENT_ID || '',
-                defaultTheme: Theme.Light,
-                eventsCallbacks: {
-                  onAuthSuccess: () => {},
-                  onSignout() {},
-                },
-              }}
-            >
-              <BuilderDAO collection={DAO_CONFIG.token} chain="BASE">
-                <FrameProvider>
-                  {children}
-                </FrameProvider>
-              </BuilderDAO>
-            </NeynarContextProvider>
+            <BuilderDAO collection={DAO_CONFIG.token} chain="BASE">
+              <FrameProvider>
+                {children}
+              </FrameProvider>
+            </BuilderDAO>
           </RainbowKitProvider>
         </QueryClientProvider>
       </WagmiProvider>

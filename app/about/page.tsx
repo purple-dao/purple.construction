@@ -15,11 +15,8 @@ const About: NextPage = () => {
         <p className="pb-7">
           Purple is a DAO whose goal is to proliferate and expand the Farcaster protocol and
           ecosystem. We will fund small grants via{' '}
-          <FrameLink href="https://rounds.wtf/purple">
-            Rounds.wtf
-          </FrameLink>{' '}
-          and larger on-chain proposals which proliferate Farcaster and/or build on top of the
-          protocol.
+          <FrameLink href="https://rounds.wtf/purple">Rounds.wtf</FrameLink> and larger on-chain
+          proposals which proliferate Farcaster and/or build on top of the protocol.
         </p>
 
         <p className="text-lg font-medium pb-2">How do I participate?</p>
@@ -31,16 +28,16 @@ const About: NextPage = () => {
           <FrameLink href={`https://nouns.build/dao/base/${DAO_CONFIG.token}`}>
             Purple
           </FrameLink>{' '}
-          token at Auction. DAO members have a governance vote, can submit proposals, and can vote on
-          Rounds.wtf grants.
+          token at Auction. DAO members have a governance vote, can submit proposals, and can vote
+          on Rounds.wtf grants.
           <br />
           <br />
           You are a Purple Community member if you{' '}
           <FrameLink href="https://warpcast.com/~/channel/purple">
             join our Warpcast channel
           </FrameLink>
-          , build on the protocol, cast about the DAO or help propose, organize, and execute on small
-          grants and proposals.
+          , build on the protocol, cast about the DAO or help propose, organize, and execute on
+          small grants and proposals.
           <br />
           <br />
           Purple is a permissionless DAO – all you need to do is organize your squad and make
@@ -61,8 +58,8 @@ const About: NextPage = () => {
 
         <p className="text-lg font-medium pb-2">How do auctions work?</p>
         <p>
-          Once the auction was started on October 25, 2022, it will run forever. A new Purple token is
-          put up for auction every 24 hours.
+          Once the auction was started on October 25, 2022, it will run forever. A new Purple token
+          is put up for auction every 24 hours.
         </p>
         <p className="italic pt-1 pb-7">
           100% of auction sales go to the DAO Treasury and is governed by the community
@@ -70,8 +67,8 @@ const About: NextPage = () => {
 
         <p className="text-lg font-medium pb-2">How does founder allocation work?</p>
         <p>
-          Once the auction was started on October 25, 2022, it will run forever. A new Purple token is
-          put up for auction every 24 hours.
+          Once the auction was started on October 25, 2022, it will run forever. A new Purple token
+          is put up for auction every 24 hours.
         </p>
         <p className="italic pt-1 pb-7">
           100% of auction sales go to the DAO Treasury and is governed by the community
@@ -81,15 +78,13 @@ const About: NextPage = () => {
           What is the relationship between Farcaster & Purple?
         </p>
         <p className="pb-7">
-          Purple is an independent ecosystem DAO. Our goal is to proliferate and expand the Farcaster
-          protocol and ecosystem. Our treasury will be used to fund those kinds of projects. We have
-          no governance rights to the Farcaster protocol or client.
+          Purple is an independent ecosystem DAO. Our goal is to proliferate and expand the
+          Farcaster protocol and ecosystem. Our treasury will be used to fund those kinds of
+          projects. We have no governance rights to the Farcaster protocol or client.
           <br />
           <br />
-          <FrameLink href="https://merklemanufactory.com/">
-            Merkle Manufactory
-          </FrameLink>{' '}
-          is the company behind the Farcaster protocol and official client, Warpcast.
+          <FrameLink href="https://merklemanufactory.com/">Merkle Manufactory</FrameLink> is the
+          company behind the Farcaster protocol and official client, Warpcast.
           <br />
           <br />
           We have (permissionlessly) allocated 10% of our token to farcaster.eth, which is owned by
@@ -103,21 +98,13 @@ const About: NextPage = () => {
 
         <p className="text-lg font-medium pb-2">Can I donate to the Purple treasury on an L2?</p>
         <p>
-          The official treasury only exists on Ethereum mainnet, but we have unofficial community
-          multi-sig addresses set up on{' '}
-          <FrameLink
-            href="https://optimistic.etherscan.io/address/0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411"
-          >
-            Optimism
-          </FrameLink>{' '}
-          and{' '}
-          <FrameLink
-            href="https://basescan.org/address/0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411"
-          >
-            Base
+          Sure! Many partners, artists, farcasters and other projects have donated a % of their
+          transactions to Purple so that we can continue to fund Farcaster Public Goods. You can
+          only donate on Base and the treasury address is
+          0xd1a84b374fd0b9466c1e99ddce15dc6179c8376a.
+          <FrameLink href="https://basescan.org/address/0xd1a84b374fd0b9466c1e99ddce15dc6179c8376a">
+            Here is the Purple Treasury on Basescan.
           </FrameLink>
-          . You can send funds to 0xb55d9d5d5Af1C2B5e1834dcd41306b02e751c411 on those networks and
-          they will periodically be bridged back to the main treasury.
         </p>
       </PageBody>
     </Page>

@@ -7,7 +7,7 @@ import { useIsMounted } from 'usehooks-ts';
 import { useAccount, useBalance } from 'wagmi';
 
 import { DAO_CONFIG } from '@/lib/config';
-import { FrameLink } from './frame-link';
+import { MiniAppLink } from './mini-app-link';
 
 export const Nav = () => {
   const isMounted = useIsMounted();
@@ -48,17 +48,17 @@ export const Nav = () => {
           </li>
           {isMounted() && isConnected && (
             <li className="block">
-              <FrameLink
+              <MiniAppLink
                 href={`https://nouns.build/dao/base/${DAO_CONFIG.token}/proposal/create`}
               >
                 Create Proposal
-              </FrameLink>
+              </MiniAppLink>
             </li>
           )}
           <li className="block">
-            <FrameLink href={`https://nouns.build/dao/base/${DAO_CONFIG.token}`}>
+            <MiniAppLink href={`https://nouns.build/dao/base/${DAO_CONFIG.token}`}>
               DAO
-            </FrameLink>
+            </MiniAppLink>
           </li>
           {/* Farcaster Icon(to add back in) */}
           {/* 

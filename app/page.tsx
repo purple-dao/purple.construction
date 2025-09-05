@@ -1,5 +1,5 @@
 import { AuctionHero } from '@/components/auction-hero';
-import { DAO_CONFIG, FRAME } from '@/lib/config';
+import { DAO_CONFIG, MINIAPP } from '@/lib/config';
 
 export function generateMetadata() {
   return {
@@ -25,7 +25,7 @@ export function generateMetadata() {
       creator: "",
     },
     other: {
-      "fc:frame": JSON.stringify(FRAME)
+      "fc:frame": JSON.stringify(MINIAPP)
     }
   }
 };

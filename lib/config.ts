@@ -8,10 +8,10 @@ export const DAO_CONFIG = {
     "Purple is a DAO whose goal is to proliferate and expand the Farcaster protocol and ecosystem.",
   url: "https://purple.construction",
   shareGraphic: "https://purple.construction/img/purple-square.png",
-  farcasterLink: "https://warpcast.com/purple",
+  farcasterLink: "https://farcaster.xyz/purple",
 };
 
-export const FRAME = {
+export const MINIAPP = {
   version: "1",
   imageUrl: DAO_CONFIG.shareGraphic,
   button: {

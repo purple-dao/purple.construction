@@ -10,12 +10,12 @@ import { ReactNode, useState } from 'react';
 import { http } from 'viem';
 import { createConfig, WagmiProvider } from 'wagmi';
 import { mainnet, base } from 'wagmi/chains';
-import { farcasterFrame } from "@farcaster/frame-wagmi-connector";
+import { farcasterMiniApp } from "@farcaster/miniapp-wagmi-connector";
 
 import { BuilderDAO } from '@/lib/builder';
 import { DAO_CONFIG } from '@/lib/config';
 import { env } from '@/lib/env';
-import FrameProvider from '@/components/providers/frame-provider';
+import MiniAppProvider from '@/components/providers/mini-app-provider';
 
 const queryClientOptions = {
   defaultOptions: {
@@ -35,7 +35,7 @@ const londrinaSolid = Londrina_Solid({
 });
 
 export const wagmiConfig = createConfig({
-  connectors: [farcasterFrame()],
+  connectors: [farcasterMiniApp()],
   chains: [mainnet, base],
   transports: {
     [mainnet.id]: http(`https://eth-mainnet.g.alchemy.com/v2/${env.NEXT_PUBLIC_ALCHEMY_API_KEY}`),
@@ -57,9 +57,9 @@ function Providers({ children }: { children: ReactNode }) {
             })}
           >
             <BuilderDAO collection={DAO_CONFIG.token} chain="BASE">
-              <FrameProvider>
+              <MiniAppProvider>
                 {children}
-              </FrameProvider>
+              </MiniAppProvider>
             </BuilderDAO>
           </RainbowKitProvider>
         </QueryClientProvider>

@@ -5,7 +5,7 @@ import { type ReactNode } from 'react';
 
 import { Nav } from '@/components/nav';
 import { Footer } from '@/components/footer';
-import { DAO_CONFIG, FRAME } from '@/lib/config';
+import { DAO_CONFIG, MINIAPP } from '@/lib/config';
 import { env } from '@/lib/env';
 import Providers from '@/components/providers';
 import PageProvider from '@/components/providers/page-provider';
@@ -38,7 +38,7 @@ export function generateMetadata() {
       creator: "",
     },
     other: {
-      "fc:frame": JSON.stringify(FRAME)
+      "fc:frame": JSON.stringify(MINIAPP)
     }
   }
 };

@@ -5,7 +5,7 @@ import React from 'react';
 
 import type { DaoInfo, ProposalData } from '@/lib/builder';
 import { relative } from '@/lib/builder/utils';
-import { FrameLink } from './frame-link';
+import { MiniAppLink } from './mini-app-link';
 
 type ProposalListItemConfig = {
   dao: DaoInfo;
@@ -27,7 +27,7 @@ export const ProposalListItem = ({ dao, proposal }: ProposalListItemConfig) => {
   const { collection } = dao.contracts;
 
   return (
-    <FrameLink href={`https://nouns.build/dao/base/${collection}/vote/${number}`}>
+    <MiniAppLink href={`https://nouns.build/dao/base/${collection}/vote/${number}`}>
       <div
         className={`flex flex-col-reverse justify-between gap-3 rounded-lg border border-theme-border p-3 shadow-none transition-shadow hover:shadow-md md:flex-row md:p-5`}
       >
@@ -53,6 +53,6 @@ export const ProposalListItem = ({ dao, proposal }: ProposalListItemConfig) => {
           )}
         </div>
       </div>
-    </FrameLink>
+    </MiniAppLink>
   );
 };

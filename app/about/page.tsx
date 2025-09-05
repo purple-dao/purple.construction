@@ -4,7 +4,7 @@ import Page from '@/components/page';
 import PageBody from '@/components/page-body';
 import PageHeader from '@/components/page-header';
 import { DAO_CONFIG } from '@/lib/config';
-import { FrameLink } from '@/components/frame-link';
+import { MiniAppLink } from '@/components/mini-app-link';
 
 const About: NextPage = () => {
   return (
@@ -15,7 +15,7 @@ const About: NextPage = () => {
         <p className="pb-7">
           Purple is a DAO whose goal is to proliferate and expand the Farcaster protocol and
           ecosystem. We will fund small grants via{' '}
-          <FrameLink href="https://rounds.wtf/purple">Rounds.wtf</FrameLink> and larger on-chain
+          <MiniAppLink href="https://rounds.wtf/purple">Rounds.wtf</MiniAppLink> and larger on-chain
           proposals which proliferate Farcaster and/or build on top of the protocol.
         </p>
 
@@ -25,17 +25,17 @@ const About: NextPage = () => {
           <br />
           <br />
           You become a DAO Member by purchasing a{' '}
-          <FrameLink href={`https://nouns.build/dao/base/${DAO_CONFIG.token}`}>
+          <MiniAppLink href={`https://nouns.build/dao/base/${DAO_CONFIG.token}`}>
             Purple
-          </FrameLink>{' '}
+          </MiniAppLink>{' '}
           token at Auction. DAO members have a governance vote, can submit proposals, and can vote
           on Rounds.wtf grants.
           <br />
           <br />
           You are a Purple Community member if you{' '}
-          <FrameLink href="https://warpcast.com/~/channel/purple">
+          <MiniAppLink href="https://warpcast.com/~/channel/purple">
             join our Warpcast channel
-          </FrameLink>
+          </MiniAppLink>
           , build on the protocol, cast about the DAO or help propose, organize, and execute on
           small grants and proposals.
           <br />
@@ -83,7 +83,7 @@ const About: NextPage = () => {
           projects. We have no governance rights to the Farcaster protocol or client.
           <br />
           <br />
-          <FrameLink href="https://merklemanufactory.com/">Merkle Manufactory</FrameLink> is the
+          <MiniAppLink href="https://merklemanufactory.com/">Merkle Manufactory</MiniAppLink> is the
           company behind the Farcaster protocol and official client, Warpcast.
           <br />
           <br />
@@ -102,9 +102,9 @@ const About: NextPage = () => {
           transactions to Purple so that we can continue to fund Farcaster Public Goods. You can
           only donate on Base and the treasury address is
           0xd1a84b374fd0b9466c1e99ddce15dc6179c8376a.
-          <FrameLink href="https://basescan.org/address/0xd1a84b374fd0b9466c1e99ddce15dc6179c8376a">
+          <MiniAppLink href="https://basescan.org/address/0xd1a84b374fd0b9466c1e99ddce15dc6179c8376a">
             Here is the Purple Treasury on Basescan.
-          </FrameLink>
+          </MiniAppLink>
         </p>
       </PageBody>
     </Page>

@@ -8,7 +8,7 @@ import { useDao, useProposals } from '@/lib/builder';
 import { DAO_CONFIG } from '@/lib/config';
 
 import { ProposalListItem } from './proposal-list-item';
-import { FrameLink } from './frame-link';
+import { MiniAppLink } from './mini-app-link';
 
 export const ProposalList = ({ opts = {} }: ComponentConfig) => {
   // const theme = opts?.theme;
@@ -53,25 +53,25 @@ export const ProposalList = ({ opts = {} }: ComponentConfig) => {
 
       <div className="flex flex-col md:flex-row gap-3 items-center justify-center my-4 pt-6">
         <div className="flex justify-center w-full md:w-auto">
-          <FrameLink
+          <MiniAppLink
             href={`https://nouns.build/dao/base/${DAO_CONFIG.token}?tab=activity`}
             className="w-full md:w-auto"
           >
             <p className="rounded-md border border-theme-border p-3 shadow-none transition-shadow hover:shadow-md text-center md:text-left w-full md:w-auto">
               View all proposals on Base
             </p>
-          </FrameLink>
+          </MiniAppLink>
         </div>
         <div className="flex justify-center w-full md:w-auto">
           {/* this token ID was the last one issued on mainnet */}
-          <FrameLink
+          <MiniAppLink
             href={`https://nouns.build/dao/ethereum/${DAO_CONFIG.v1Token}/478?tab=activity`}
             className="w-full md:w-auto"
           >
             <p className="rounded-md border border-theme-border p-3 shadow-none transition-shadow hover:shadow-md text-center md:text-left w-full md:w-auto">
               View previous proposals on Ethereum
             </p>
-          </FrameLink>
+          </MiniAppLink>
         </div>
       </div>
     </div>

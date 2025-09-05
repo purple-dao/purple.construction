@@ -1,4 +1,4 @@
-import { FrameLink } from "./frame-link";
+import { MiniAppLink } from "./mini-app-link";
 
 export const Footer = () => {
   return (
@@ -6,7 +6,7 @@ export const Footer = () => {
       <hr className="w-full border-gray-300 py-3" />
       <div className="flex flex-col gap-2 items-center">
         <div className="max-w-[5rem]">
-          <FrameLink href="https://nouns.build/">
+          <MiniAppLink href="https://nouns.build/">
             <svg
               xmlnsXlink="http://www.w3.org/1999/xlink"
               viewBox="0 0 696 186"
@@ -64,13 +64,13 @@ export const Footer = () => {
                 </clipPath>
               </defs>
             </svg>
-          </FrameLink>
+          </MiniAppLink>
         </div>
         <p>
           built on{' '}
-          <FrameLink href="https://nouns.build/" className="underline">
+          <MiniAppLink href="https://nouns.build/" className="underline">
             nouns builder
-          </FrameLink>
+          </MiniAppLink>
         </p>
       </div>
     </footer>

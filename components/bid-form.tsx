@@ -30,7 +30,7 @@ export const BidForm = ({
     args: [BigInt(String(auctionData.auctionId))],
     value: parseEther(formData.input.value || '0'),
     query: {
-      enabled: !isComplete && formData.input.value !== undefined,
+      enabled: !isComplete && formData.input.value !== undefined && !!account.address,
     },
   });
 

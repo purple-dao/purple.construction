@@ -5,7 +5,7 @@ export const DAO_CONFIG = {
   auction: '0x73ab6d816fb9fe1714e477c5a70d94e803b56576',
   treasury: '0xd1a84b374fd0b9466c1e99ddce15dc6179c8376a',
   description:
-    "Purple is a DAO whose goal is to proliferate and expand the Farcaster protocol and ecosystem.",
+    "Purple proliferates and expands the Farcaster protocol and ecosystem",
   url: "https://purple.construction",
   shareGraphic: "https://purple.construction/img/purple-square.png",
   farcasterLink: "https://farcaster.xyz/purple",

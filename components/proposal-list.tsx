@@ -23,7 +23,6 @@ export const ProposalList = ({ opts = {} }: ComponentConfig) => {
     return proposals;
   }, [proposals, sortDirection]);
 
-  console.log(isLoading);
   if (isLoading) {
     return (
       <div id="proposal-list" className="flex flex-col gap-6">

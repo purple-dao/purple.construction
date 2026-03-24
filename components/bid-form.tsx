@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { auctionAbi } from '@buildeross/sdk/contract';
 import { parseEther } from 'viem';
 import { useAccount, useChainId, useSwitchChain, useWriteContract, useSimulateContract } from 'wagmi';
 import { base } from 'wagmi/chains';
-
-import { AuctionABI } from '@/lib/builder/abis';
 
 export const BidForm = ({
   auctionData,
@@ -25,7 +24,7 @@ export const BidForm = ({
 
   const { data: simulationData, error: simulationError } = useSimulateContract({
     address: dao.contracts.auction as `0x${string}`,
-    abi: AuctionABI,
+    abi: auctionAbi,
     functionName: 'createBid',
     args: [BigInt(String(auctionData.auctionId))],
     value: parseEther(formData.input.value || '0'),
@@ -42,7 +41,7 @@ export const BidForm = ({
     await writeContractAsync({
       address: dao.contracts.auction as `0x${string}`,
       chainId: base.id,
-      abi: AuctionABI,
+      abi: auctionAbi,
       functionName: 'settleCurrentAndCreateNewAuction',
     });
   };
@@ -56,7 +55,7 @@ export const BidForm = ({
       const result = await writeContractAsync({
         address: dao.contracts.auction as `0x${string}`,
         chainId: base.id,
-        abi: AuctionABI,
+        abi: auctionAbi,
         functionName: 'createBid',
         args: [BigInt(String(auctionData.auctionId))],
         value: parseEther(formData.input.value || '0'),

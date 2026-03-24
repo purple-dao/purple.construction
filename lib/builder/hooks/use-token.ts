@@ -1,95 +1,67 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { pick } from 'lodash';
+import { tokenAbi } from '@buildeross/sdk/contract';
 import { useMemo } from 'react';
-import { useReadContract } from 'wagmi';
+import { useReadContracts } from 'wagmi';
 
-// import { DAO_CONFIG } from '../../config';
-import { TokenABI } from '../abis';
-import { fetchTokenData } from '../queries';
+import { PURPLE_DAO } from '@/lib/purple-dao';
+
 import type { DaoInfo, TokenData } from '../types';
-// import { logWarning } from '../utils';
+
+const ipfsGateway = 'https://gateway.pinata.cloud/ipfs/';
+
+function decodeTokenUri(uri: string | undefined): Omit<TokenData, 'owner' | 'chain'> | null {
+  if (!uri || !uri.startsWith('data:application/json;base64,')) return null;
+  const json = JSON.parse(window.atob(uri.split(',')[1] ?? ''));
+  const image = json?.image?.replace?.('ipfs://', ipfsGateway) ?? json?.image;
+  return {
+    id: 0,
+    name: json?.name ?? '',
+    description: json?.description ?? '',
+    imageUrl: image ?? '',
+    attributes: (json?.properties as Record<string, unknown>) ?? {},
+  };
+}
 
 export const useToken = (id: number | undefined, dao: DaoInfo | undefined): TokenData => {
-  const { chain } = pick(dao, ['chain']);
-  const { contracts } = pick(dao, ['contracts']);
-  const { collection } = pick(contracts, ['collection']);
+  const chain = dao?.chain ?? 'BASE';
 
-  // const getDataFromContract = async (id: number): Promise<TokenData | null> => {
-  //   const tokenData = await readContract({
-  //     address: DAO_CONFIG.token as `0x${string}`,
-  //     abi: TokenABI,
-  //     functionName: 'tokenURI',
-  //     args: [BigInt(id)],
-  //   });
-
-  //   const data = JSON.parse(window.atob(tokenData.split(',')[1]));
-  //   const { name, description, image, properties } = data;
-
-  //   return {
-  //     id,
-  //     owner: '',
-  //     name,
-  //     description,
-  //     imageUrl: image,
-  //     attributes: properties,
-  //     chain: dao.chain,
-  //   };
-  // };
-
-  const { data: tokenData } = useQuery({
-    queryKey: ['token', id],
-    queryFn: () => {
-      if (!id || !collection || !chain) return null;
-      return fetchTokenData({ tokenId: id, collection, chain });
+  const { data } = useReadContracts({
+    contracts: [
+      {
+        address: PURPLE_DAO.tokenAddress,
+        chainId: PURPLE_DAO.chainId,
+        abi: tokenAbi,
+        functionName: 'tokenURI',
+        args: [BigInt(id ?? 0)],
+      },
+      {
+        address: PURPLE_DAO.tokenAddress,
+        chainId: PURPLE_DAO.chainId,
+        abi: tokenAbi,
+        functionName: 'ownerOf',
+        args: [BigInt(id ?? 0)],
+      },
+    ],
+    query: {
+      enabled: typeof id === 'number' && id >= 0,
     },
-    enabled: !!id,
   });
 
-  const { data: contractData } = useReadContract({
-    address: collection as `0x${string}`,
-    abi: TokenABI,
-    functionName: 'tokenURI',
-    args: [BigInt(id || 0)],
-    // enabled: !!id && !tokenData && !isLoading,
-  });
+  return useMemo(() => {
+    const tokenUri = data?.[0]?.result as string | undefined;
+    const owner = (data?.[1]?.result as `0x${string}` | undefined) ?? '';
 
-  const parsedContractData = useMemo(() => {
-    if (!contractData || !id) return null;
-    const data = JSON.parse(window.atob(contractData.split(',')[1]));
-    const { name, description, image, properties } = data;
+    const decoded = decodeTokenUri(tokenUri);
+    if (!decoded || id === undefined) {
+      return {} as TokenData;
+    }
 
     return {
+      ...decoded,
       id,
-      owner: '',
-      name,
-      description,
-      imageUrl: image,
-      attributes: properties,
-      chain: dao?.chain || "BASE",
+      owner,
+      chain,
     };
-  }, [contractData, id]);
-
-  // // fetch data from zora api
-  // useEffect(() => {
-  //   if (!id) return;
-  //   const fetchData = async (id: number) => {
-  //     const { chain } = dao;
-  //     const { collection } = dao.contracts;
-  //     const data = await fetchTokenData({ tokenId: id, collection, chain });
-  //     if (data) setTokenData(data);
-  //     else {
-  //       const data = await getDataFromContract(id);
-  //       if (data) setTokenData(data);
-  //       else {
-  //         logWarning('no_data', collection, chain);
-  //       }
-  //     }
-  //   };
-
-  //   if (id !== undefined && dao.contracts?.collection && dao.chain) fetchData(id);
-  // }, [id, dao]);
-
-  return parsedContractData || tokenData || ({} as TokenData);
+  }, [data, id, chain]);
 };

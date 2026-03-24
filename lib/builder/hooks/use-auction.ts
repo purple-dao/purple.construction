@@ -1,131 +1,144 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
-import { map, pick } from 'lodash';
+import { useDaoAuction } from '@buildeross/hooks/useDaoAuction';
+import { auctionAbi } from '@buildeross/sdk/contract';
+import { useQueryClient } from '@tanstack/react-query';
 import { FormEvent, useEffect, useMemo, useState } from 'react';
 import { formatEther, parseEther } from 'viem';
 import { useReadContracts, useWatchContractEvent } from 'wagmi';
 
-import { AuctionABI } from '../abis';
-import { fetchAuctionData } from '../queries';
+import { PURPLE_DAO } from '@/lib/purple-dao';
+
 import type { AuctionData, DaoInfo } from '../types';
 
 const defaultData = {
-  auction: {} as AuctionData,
   minBid: parseEther('0.05'),
   minPctIncrease: 10n,
 };
 
 export const useAuction = (dao: DaoInfo | undefined) => {
+  const queryClient = useQueryClient();
   const [userBid, setUserBid] = useState<string>('');
   const [isValidUserBid, setIsValidUserBid] = useState<boolean>(false);
 
   const handleUserBidChange = (event: FormEvent<HTMLInputElement>) => {
     setUserBid(event.currentTarget.value);
   };
-  const { chain } = pick(dao, ['chain']);
-  const { contracts } = pick(dao, ['contracts']);
-  const { auction, collection } = pick(contracts, ['auction', 'collection']);
 
-  const { data: auctionData } = useQuery({
-    queryKey: ['auction', collection, chain],
-    queryFn: () => {
-      if (!collection || !chain) return;
-      return fetchAuctionData({ collection, chain });
-    },
-    enabled: !!collection && !!chain,
+  const daoAuction = useDaoAuction({
+    collectionAddress: PURPLE_DAO.tokenAddress,
+    auctionAddress: PURPLE_DAO.auctionAddress,
+    chainId: PURPLE_DAO.chainId,
   });
 
   const { data: contractData } = useReadContracts({
-    contracts: [{
-      address: auction as `0x${string}`,
-      chainId: 8453,
-      abi: AuctionABI,
-      functionName: 'minBidIncrement',
-    },
-    {
-      address: auction as `0x${string}`,
-      chainId: 8453,
-      abi: AuctionABI,
-      functionName: 'reservePrice',
-    },
+    contracts: [
+      {
+        address: PURPLE_DAO.auctionAddress,
+        chainId: PURPLE_DAO.chainId,
+        abi: auctionAbi,
+        functionName: 'minBidIncrement',
+      },
+      {
+        address: PURPLE_DAO.auctionAddress,
+        chainId: PURPLE_DAO.chainId,
+        abi: auctionAbi,
+        functionName: 'reservePrice',
+      },
     ],
   });
-  const [minPctIncrease, reservePrice] = map(contractData, 'result');
+  const [minPctIncrease, reservePrice] = [contractData?.[0]?.result, contractData?.[1]?.result] as [
+    bigint | undefined,
+    bigint | undefined,
+  ];
 
+  const auctionData: AuctionData | undefined = useMemo(() => {
+    if (daoAuction.isLoading || daoAuction.tokenId === undefined) return undefined;
+    const tokenIdNum = Number(daoAuction.tokenId);
+    const endMs = daoAuction.endTime ? Number(daoAuction.endTime) * 1000 : 0;
+    const startMs = daoAuction.startTime ? Number(daoAuction.startTime) * 1000 : 0;
 
-  // calculate minimum bid
+    return {
+      auctionId: tokenIdNum,
+      chain: dao?.chain ?? 'BASE',
+      startTime: startMs,
+      endTime: endMs,
+      highestBid: daoAuction.highestBid ?? null,
+      highestBidder: daoAuction.highestBidder ?? null,
+      minBid: null,
+      minPctIncrease: minPctIncrease ? String(minPctIncrease) : undefined,
+    };
+  }, [dao?.chain, daoAuction, minPctIncrease]);
+
   const minBid = useMemo(() => {
-    if (!auctionData?.auctionId || !minPctIncrease) return defaultData.minBid;
+    if (!auctionData?.auctionId || minPctIncrease === undefined) return defaultData.minBid;
     const localMinPctIncrease = minPctIncrease || defaultData.minPctIncrease;
     const { highestBid } = auctionData;
 
-    if (!highestBid || Number(highestBid) < 0) return reservePrice || 0n;
+    if (!highestBid || Number(highestBid) < 0) {
+      return reservePrice !== undefined ? formatEther(reservePrice) : formatEther(defaultData.minBid);
+    }
 
     const bid = parseEther(highestBid);
     if (bid < 0n || !localMinPctIncrease) return defaultData.minBid;
     const min = bid + bid / localMinPctIncrease;
     return formatEther(min);
+  }, [auctionData?.auctionId, auctionData?.highestBid, minPctIncrease, reservePrice]);
 
-  }, [auctionData?.auctionId, auctionData?.highestBid, minPctIncrease]);
-
-  // confirm if user bid is valid
   useEffect(() => {
-    if (!auctionData?.endTime || Date.now() >= auctionData?.endTime) setIsValidUserBid(false);
+    if (!auctionData?.endTime || Date.now() >= auctionData.endTime) setIsValidUserBid(false);
     else if (!userBid || Number(userBid) < 0 || !Number.isInteger(auctionData.auctionId))
       setIsValidUserBid(false);
     else {
       const bid = parseEther(userBid);
       const min = parseEther(minBid?.toString() || '0');
-      const isValid = bid >= min;
-      setIsValidUserBid(isValid);
+      setIsValidUserBid(bid >= min);
     }
     return () => setIsValidUserBid(false);
-  }, [auctionData?.endTime, minBid, userBid]);
+  }, [auctionData?.endTime, auctionData?.auctionId, minBid, userBid]);
 
-  // listen for new bids
+  const invalidateAuctionReads = () => {
+    void queryClient.invalidateQueries({ queryKey: ['readContract'] });
+  };
+
   useWatchContractEvent({
-    address: auction as `0x${string}`,
-    chainId: 8453,
-    abi: AuctionABI,
+    address: PURPLE_DAO.auctionAddress,
+    chainId: PURPLE_DAO.chainId,
+    abi: auctionAbi,
     eventName: 'AuctionBid',
-    onLogs() {
-
-      // TODO invalidate queries
-    },
+    onLogs: invalidateAuctionReads,
   });
 
-  // listen for new auction
   useWatchContractEvent({
-    address: auction as `0x${string}`,
-    chainId: 8453,
-    abi: AuctionABI,
+    address: PURPLE_DAO.auctionAddress,
+    chainId: PURPLE_DAO.chainId,
+    abi: auctionAbi,
     eventName: 'AuctionCreated',
-    onLogs() {
+    onLogs: invalidateAuctionReads,
+  });
 
-      // TODO invalidate queries
-    },
+  useWatchContractEvent({
+    address: PURPLE_DAO.auctionAddress,
+    chainId: PURPLE_DAO.chainId,
+    abi: auctionAbi,
+    eventName: 'AuctionSettled',
+    onLogs: invalidateAuctionReads,
   });
 
   return {
-    auctionData: {
-      auctionId: auctionData?.auctionId,
-      chain: dao?.chain || 'BASE',
-      startTime: auctionData?.startTime,
-      endTime: auctionData?.endTime,
-      highestBid: auctionData?.highestBid || '0',
-      highestBidder: auctionData?.highestBidder,
+    auctionData: auctionData && {
+      ...auctionData,
       minBid,
       minPctIncrease,
     },
     formData: {
       attributes: {},
       input: {
-        value: userBid || 0n,
+        value: userBid,
         min: minBid,
         step: 'any',
         type: 'number',
-        placeholder: `${formatEther(BigInt(minBid || 0n))} or more`,
+        placeholder: `${minBid} or more`,
         onChange: handleUserBidChange,
       },
       btn: {

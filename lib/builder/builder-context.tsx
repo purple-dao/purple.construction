@@ -9,12 +9,6 @@ export const DaoContext = createContext<DaoConfig>({
   chain: 'BASE',
 });
 
-export const BuilderDAO = ({ collection, chain, children }: React.PropsWithChildren<DaoConfig>) => {
-  return React.createElement(DaoContext.Provider, {
-    children: React.createElement('div', {
-      children,
-      context: DaoContext,
-    }),
-    value: { collection, chain },
-  });
-};
+export const BuilderDAO = ({ collection, chain, children }: React.PropsWithChildren<DaoConfig>) => (
+  <DaoContext.Provider value={{ collection, chain }}>{children}</DaoContext.Provider>
+);

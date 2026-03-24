@@ -1,12 +1,12 @@
+import type { ProposalState } from '@buildeross/types';
+
 export type SortDirection = 'ASC' | 'DESC';
 
 export type Theme = 'base' | 'dark' | undefined;
 
 export type ComponentConfig = {
-  // dao: DaoInfo;
   opts: {
-    [key: string]: any;
-  } & {
+    [key: string]: unknown;
     theme?: Theme;
     sortDirection?: SortDirection;
   };
@@ -74,7 +74,7 @@ export type TokenData = {
   description: string;
   imageUrl: string;
   chain: DaoConfig['chain'];
-  attributes: Record<string, any>;
+  attributes: Record<string, unknown>;
   auctionInfo?: {
     tokenId: number;
     winner: string;
@@ -96,7 +96,8 @@ export type ProposalData = {
   proposer: string;
   title: string;
   description: string;
-  status: string;
+  status: ProposalState;
+  statusLabel: string;
   quorum: number;
   voteStart: number;
   voteEnd: number;

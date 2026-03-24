@@ -1,10 +1,13 @@
 'use client';
 
+import { ProposalState } from '@buildeross/types';
 import cx from 'classnames';
 import React from 'react';
 
 import type { DaoInfo, ProposalData } from '@/lib/builder';
+import { proposalStateKey } from '@/lib/builder/proposal-state';
 import { relative } from '@/lib/builder/utils';
+
 import { MiniAppLink } from './mini-app-link';
 
 type ProposalListItemConfig = {
@@ -19,12 +22,16 @@ const statusColors: Record<string, string> = {
   defeated: 'bg-red-200 text-red-800',
   canceled: 'bg-red-200 text-red-800',
   queued: 'bg-yellow-200 text-yellow-800',
+  succeeded: 'bg-blue-200 text-blue-800',
+  expired: 'bg-gray-200 text-gray-600',
+  vetoed: 'bg-red-200 text-red-800',
   unknown: 'bg-gray-200 text-gray-500',
 };
 
 export const ProposalListItem = ({ dao, proposal }: ProposalListItemConfig) => {
-  const { number, status, title, voteStart, voteEnd } = proposal;
+  const { number, statusLabel, title, voteStart, voteEnd } = proposal;
   const { collection } = dao.contracts;
+  const styleKey = proposalStateKey(proposal.status);
 
   return (
     <MiniAppLink href={`https://nouns.build/dao/base/${collection}/vote/${number}`}>
@@ -36,17 +43,17 @@ export const ProposalListItem = ({ dao, proposal }: ProposalListItemConfig) => {
           <p className="text-sm opacity-40">{relative(voteStart)}</p>
         </div>
         <div className="flex flex-row items-center gap-3 md:flex-row-reverse">
-          {status && (
+          {statusLabel && (
             <>
               <p
                 className={cx(
-                  statusColors[status.toLowerCase() || 'unknown'],
+                  statusColors[styleKey] ?? statusColors.unknown,
                   'rounded-lg px-3 py-2 text-center text-xs font-bold md:text-base',
                 )}
               >
-                {status}
+                {statusLabel}
               </p>
-              {status === 'Active' && (
+              {proposal.status === ProposalState.Active && (
                 <p className="text-sm opacity-40">ends {relative(voteEnd)}</p>
               )}
             </>

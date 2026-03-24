@@ -7,7 +7,7 @@ import { Nav } from '@/components/nav';
 import { Footer } from '@/components/footer';
 import { DAO_CONFIG, MINIAPP } from '@/lib/config';
 import { env } from '@/lib/env';
-import Providers from '@/components/providers';
+import { ClientProviders } from '@/components/providers/client-providers';
 import PageProvider from '@/components/providers/page-provider';
 
 interface LayoutProps {
@@ -63,7 +63,7 @@ const Layout = ({ children }: LayoutProps) => {
       </head>
 
       <body className="w-full">
-        <Providers>
+        <ClientProviders>
           <div className="flex flex-col md:flex-row w-full">
             <Nav />
             <main className="h-auto flex-col gap-8 w-full">
@@ -75,7 +75,7 @@ const Layout = ({ children }: LayoutProps) => {
             </main>
           </div>
           <Footer />
-        </Providers>
+        </ClientProviders>
       </body>
     </html>
   );

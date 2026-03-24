@@ -7,12 +7,18 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true,
-  // Empty turbopack config to enable Turbopack and silence warnings
-  turbopack: {},
-  // Keep webpack config for fallback compatibility
+  turbopack: {
+    resolveAlias: {
+      '@react-native-async-storage/async-storage': { browser: '' },
+    },
+  },
   webpack: (config) => {
     config.resolve.fallback = { fs: false, net: false, tls: false };
-    config.externals.push('pino-pretty', 'lokijs', 'encoding'); // Rainbowkit polyfills
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@react-native-async-storage/async-storage': false,
+    };
+    config.externals.push('pino-pretty', 'lokijs', 'encoding');
 
     return config;
   },

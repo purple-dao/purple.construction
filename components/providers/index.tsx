@@ -15,7 +15,6 @@ import { BuilderDAO } from '@/lib/builder';
 import { DAO_CONFIG } from '@/lib/config';
 import { env } from '@/lib/env';
 import MiniAppProvider from '@/components/providers/mini-app-provider';
-import { baseAccount } from 'wagmi/connectors';
 
 const queryClientOptions = {
   defaultOptions: {
@@ -34,11 +33,6 @@ const londrinaSolid = Londrina_Solid({
   display: 'swap',
 });
 
-const baseAccountConnector = baseAccount({
-  appName: DAO_CONFIG.title,
-  appLogoUrl: DAO_CONFIG.shareGraphic
-})
-
 export const wagmiConfig = getDefaultConfig({
   chains: [mainnet, base],
   transports: {
@@ -46,7 +40,7 @@ export const wagmiConfig = getDefaultConfig({
     [base.id]: http(`https://base-mainnet.g.alchemy.com/v2/${env.NEXT_PUBLIC_ALCHEMY_API_KEY}`)
   },
   appName: DAO_CONFIG.title,
-  projectId: env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID
+  projectId: env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
 });
 
 function Providers({ children }: { children: ReactNode }) {

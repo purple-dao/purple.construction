@@ -23,6 +23,7 @@
     "@sentry/nextjs": "^9.47.1",
     "@t3-oss/env-nextjs": "^0.13.8",
     "@tanstack/react-query": "^5.95.2",
+    "@wagmi/core": "^3.4.1",
     "classnames": "^2.5.1",
     "dayjs": "^1.11.18",
     "lodash": "^4.17.21",
